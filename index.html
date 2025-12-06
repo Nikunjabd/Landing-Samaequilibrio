@@ -17,20 +17,20 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
- <!-- Configuración de Colores basada en Isotipo -->
+    <!-- Configuración de Colores -->
     <script>
         tailwind.config = {
-            darkMode: 'class', // Deshabilita modo oscuro automático
+            darkMode: 'class', // Deshabilita modo oscuro automático de Tailwind
             theme: {
                 extend: {
                     colors: {
                         sama: {
-                            base: '#FDFCDC',    // Crema de fondo (Isotipo fondo)
-                            primary: '#A3C558', // Verde Claro (Isotipo remolinos claros)
-                            dark: '#6B8E23',    // Verde Oliva (Isotipo remolinos oscuros/textos)
-                            accent: '#fdd17c',  // Naranja/Amarillo (Isotipo puntos - PROTAGONISTA)
-                            light: '#E9F5DB',   // Verde muy pálido para secciones alternas
-                            text: '#2C3E2D'     // Verde muy oscuro casi negro para lectura
+                            base: '#FDFCDC',    
+                            primary: '#A3C558', 
+                            dark: '#6B8E23',    
+                            accent: '#fdd17c',  
+                            light: '#E9F5DB',   
+                            text: '#2C3E2D'     
                         }
                     },
                     fontFamily: {
@@ -43,7 +43,12 @@
     </script>
 
     <style>
-        /* Forzar fondo claro incluso si el móvil está en modo oscuro */
+        /* REGLA CRUCIAL: Forzar esquema de color claro en el navegador */
+        :root {
+            color-scheme: light;
+        }
+        
+        /* Asegurar fondo y texto claros con !important */
         html, body {
             background-color: #FDFCDC !important;
             color: #2C3E2D !important;
@@ -59,7 +64,6 @@
             max-height: 400px;
         }
         
-        /* Patrón de fondo sutil en naranja */
         .hero-pattern {
             background-image: radial-gradient(#fdd17c 1px, transparent 1px);
             background-size: 24px 24px;
@@ -75,7 +79,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Scrollbar personalizada en verdes */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -95,28 +99,63 @@
         .organic-blob {
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         }
+
+        /* Estilos para el menú móvil */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px; /* Altura suficiente para mostrar items */
+        }
     </style>
 </head>
 <body class="antialiased bg-sama-base text-sama-text">
 
     <!-- Navigation -->
-    <nav class="bg-white/95 backdrop-blur-md fixed w-full z-50 shadow-sm border-b border-sama-primary/20">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav class="bg-sama-base/95 backdrop-blur-md fixed w-full z-50 shadow-sm border-b border-sama-primary/20">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center relative">
+            
+            <!-- Logo (Ajustado para no estar pegado al borde en móvil) -->
             <div class="flex items-center pl-2 md:pl-6">
                 <div class="h-16 w-auto flex items-center justify-center bg-transparent overflow-hidden">
-                     <img src="isotiposamat.png" alt="Sama Equilibrio Logo" class="h-full object-contain">
+                     <img src="https://placehold.co/200x80/FDFCDC/6B8E23?text=LOGO+SAMA" alt="Sama Equilibrio Logo" class="h-full object-contain">
                 </div>
             </div>
+
+            <!-- Menú Desktop (Oculto en móvil) -->
             <div class="hidden md:flex space-x-8 text-sama-text font-medium">
-                <a href="#problema" class="hover:text-sama-dark transition">¿Podemos ayudarte si?</a>
+                <a href="#problema" class="hover:text-sama-dark transition">¿Por qué me siento así?</a>
                 <a href="#metodo" class="hover:text-sama-dark transition">El Método</a>
                 <a href="#bio" class="hover:text-sama-dark transition">Dr. Nicasio</a>
                 <a href="#ofertas" class="hover:text-sama-dark transition">Programas</a>
             </div>
-            <!-- CTA Naranja en el Nav -->
-            <button onclick="openTestModal()" class="bg-sama-accent hover:bg-orange-300 text-sama-dark px-5 py-2 rounded-full font-bold transition shadow-md text-sm border border-orange-200">
+
+            <!-- Botón CTA (Desktop) -->
+            <button onclick="openTestModal()" class="hidden md:block bg-sama-accent hover:bg-orange-300 text-sama-text px-6 py-2 rounded-full font-bold transition shadow-md text-sm border border-orange-200">
                 ¿Cuál es mi dosha?
             </button>
+
+            <!-- Botón Hamburguesa (Móvil) -->
+            <div class="md:hidden flex items-center">
+                <button onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable (Nuevo) -->
+        <div id="mobile-menu" class="md:hidden bg-sama-base border-t border-sama-primary/20 w-full absolute top-full left-0 shadow-lg">
+            <div class="flex flex-col px-4 py-4 space-y-4 text-center">
+                <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2">¿Por qué me siento así?</a>
+                <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2">El Método</a>
+                <a href="#bio" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2">Dr. Nicasio</a>
+                <a href="#ofertas" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2">Programas</a>
+                <button onclick="openTestModal(); toggleMobileMenu()" class="bg-sama-accent text-sama-text px-6 py-3 rounded-full font-bold w-full shadow-sm border border-orange-200">
+                    ¿Cuál es mi dosha?
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -476,7 +515,7 @@
                     </div>
                     <p class="text-gray-600 italic mb-4 flex-grow">"En 20 días me había desinflamado y bajé 8 kilos. Pasé de estar triste y aislada a tener ganas de conectar."</p>
                     <div class="font-bold text-sama-text mb-4">- Miriam V.</div>
-                    <a href="https://open.spotify.com/show/your-podcast-link" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
+                    <a href="https://open.spotify.com/episode/0zk4aT88z0XM9V8rG7KZBf?si=4692f22989d94d69&nd=1&dlsi=5b07d7d955a742cd" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
                         <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
                     </a>
                 </div>
@@ -488,7 +527,7 @@
                     </div>
                     <p class="text-gray-600 italic mb-4 flex-grow">"Se me normalizó la presión, no tengo más colesterol y volví a sentirme realmente bien."</p>
                     <div class="font-bold text-sama-text mb-4">- Liliana E.</div>
-                    <a href="https://open.spotify.com/show/your-podcast-link" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
+                    <a href="https://open.spotify.com/episode/2hGGe11TTsY5SB7NAE8vEz?si=24f499b693124268&nd=1&dlsi=4aa1798902884e52" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
                         <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
                     </a>
                 </div>
@@ -500,7 +539,7 @@
                     </div>
                     <p class="text-gray-600 italic mb-4 flex-grow">"Este camino me dio contención y claridad. Honestamente, me cambió la vida."</p>
                     <div class="font-bold text-sama-text mb-4">- Diego S.</div>
-                    <a href="https://open.spotify.com/show/your-podcast-link" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
+                    <a href="https://open.spotify.com/episode/2QaOl80aaryZyUWcFggB2Z?si=e06ffbc9cdc84cd8&nd=1&dlsi=1ba784da6b084a30" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
                         <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
                     </a>
                 </div>
