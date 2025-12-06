@@ -28,7 +28,7 @@
                             primary: '#749C75', // Sage Green
                             dark: '#486249',    // Dark Green text/headings
                             accent: '#D98324',  // Terracotta/Orange for CTAs
-                            light: '#EAF4EB',   // Light green for sections
+                            light: '#b1c52b',   // Light green for sections
                             text: '#374151'     // Gray text
                         }
                     },
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="hidden md:flex space-x-8 text-sama-text font-medium">
-                <a href="#problema" class="hover:text-sama-primary transition">¿Por qué me siento así?</a>
+                <a href="#problema" class="hover:text-sama-primary transition">¿Podemos ayudarte si?</a>
                 <a href="#metodo" class="hover:text-sama-primary transition">El Método</a>
                 <a href="#bio" class="hover:text-sama-primary transition">Dr. Nicasio</a>
                 <a href="#ofertas" class="hover:text-sama-primary transition">Programas</a>
@@ -279,16 +279,17 @@
         </div>
     </section>
 
-    <!-- Authority Bio Section (Updated) -->
+    <!-- Authority Bio Section (MODIFICADA: Fondo claro e imagen integrada) -->
     <section id="bio" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="bg-sama-dark rounded-3xl overflow-hidden shadow-2xl">
+            <!-- CAMBIO: bg-sama-light en lugar de bg-sama-dark -->
+            <div class="bg-sama-light rounded-3xl overflow-hidden shadow-2xl">
                 <div class="flex flex-col lg:flex-row">
                     <!-- Image Area -->
                     <div class="lg:w-1/3 relative h-96 lg:h-auto">
-                        <!-- REPLACE THIS SRC WITH BIO PHOTO (e.g. from PDF with orange sweater) -->
-                        <img src="nicasiolabrava.jpg" alt="Dr. Nicasio Cavilla" class="absolute inset-0 w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-sama-dark via-transparent to-transparent opacity-80 lg:bg-gradient-to-r"></div>
+                        <img src="https://placehold.co/600x800/486249/ffffff?text=Nicasio+Accion" alt="Dr. Nicasio Cavilla" class="absolute inset-0 w-full h-full object-cover">
+                        <!-- CAMBIO: Gradiente ajustado a colores claros/transparentes si es necesario, o eliminado -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-sama-light via-transparent to-transparent opacity-80 lg:bg-gradient-to-r"></div>
                     </div>
                     
                     <!-- Content -->
@@ -504,21 +505,23 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-sama-dark text-white py-12">
+    <!-- Footer (MODIFICADO: Fondo claro y enlaces activos) -->
+    <!-- CAMBIO: bg-sama-light en lugar de bg-sama-dark -->
+    <footer class="bg-sama-light text-sama-dark py-12">
         <div class="container mx-auto px-4 flex flex-col items-center text-center">
             
             <div class="mb-8">
                 <h3 class="font-serif text-2xl font-bold">Sama<span class="font-light">Equilibrio</span></h3>
-                <p class="text-gray-300 text-sm mt-2 font-medium tracking-wide">medicina, conciencia y empatía</p>
+                <p class="text-gray-700 text-sm mt-2 font-medium tracking-wide">medicina, conciencia y empatía</p>
             </div>
 
-            <div class="flex space-x-8 mb-8">
-                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
-                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-facebook text-2xl"></i></a>
-                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-youtube text-2xl"></i></a>
-                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-spotify text-2xl"></i></a>
+            <!-- Social Links con target blank y placeholders -->
+            <div class="flex space-x-8 mb-8 text-sama-dark">
+                <a href="https://api.whatsapp.com/send?phone=5492235241596&text=" target="_blank" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+                <a href="https://www.instagram.com/samaequilibrio/" target="_blank" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-instagram text-2xl"></i></a>
+                <a href="https://www.facebook.com/sama.espaciodeequilibrio" target="_blank" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-facebook text-2xl"></i></a>
+                <a href="https://www.youtube.com/@samaequilibrio" target="_blank" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-youtube text-2xl"></i></a>
+                <a href="https://open.spotify.com/show/5b4IOnRgnFRvMVMD5Yh8mq?si=HFcC5HWMTPuWZ86rSruwDg&nd=1&dlsi=3e9358ff3035443e" target="_blank" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-spotify text-2xl"></i></a>
             </div>
 
             <div class="border-t border-gray-700 pt-8 w-full max-w-2xl flex flex-col items-center">
