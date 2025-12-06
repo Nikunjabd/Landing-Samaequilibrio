@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sama Equilibrio | Dr. Nicasio Cavilla</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Sama Nature (Sage, Terracotta, Cream) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sama: {
+                            base: '#FDFCDC',    // Cream background
+                            primary: '#749C75', // Sage Green
+                            dark: '#486249',    // Dark Green text/headings
+                            accent: '#D98324',  // Terracotta/Orange for CTAs
+                            light: '#EAF4EB',   // Light green for sections
+                            text: '#374151'     // Gray text
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDFCDC;
+            color: #374151;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .hero-pattern {
+            background-image: radial-gradient(#749C75 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFCDC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #749C75;
+            border-radius: 4px;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        /* Image masking for organic feel */
+        .organic-blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md fixed w-full z-50 shadow-sm border-b border-sama-primary/20">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <!-- LOGO PLACEHOLDER -->
+                <div class="h-16 w-auto flex items-center justify-center bg-transparent overflow-hidden">
+                     <!-- Replace src below with actual logo file -->
+                     <img src="https://placehold.co/200x80/FDFCDC/486249?text=LOGO+SAMA" alt="Sama Equilibrio Logo" class="h-full object-contain">
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sama-text font-medium">
+                <a href="#problema" class="hover:text-sama-primary transition">¿Por qué me siento así?</a>
+                <a href="#metodo" class="hover:text-sama-primary transition">El Método</a>
+                <a href="#bio" class="hover:text-sama-primary transition">Dr. Nicasio</a>
+                <a href="#ofertas" class="hover:text-sama-primary transition">Programas</a>
+            </div>
+            <button onclick="openTestModal()" class="bg-sama-accent hover:bg-orange-600 text-white px-5 py-2 rounded-full font-bold transition shadow-md text-sm">
+                ¿Cuál es mi dosha?
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 overflow-hidden bg-sama-light/30">
+        <div class="absolute inset-0 hero-pattern z-0"></div>
+        <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-12">
+            
+            <!-- Text Content -->
+            <div class="md:w-1/2 text-center md:text-left fade-in">
+                <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-sama-dark font-bold leading-tight mb-6">
+                    Ayurveda: Salud y Bienestar real,<br>
+                    <span class="text-sama-primary italic">(en tus manos)</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+                    Conectá la precisión de la medicina moderna con tu sabiduría interior. Dejá atrás las "soluciones mágicas" y recuperá el control de tu salud con la guia de un médico experto.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <button onclick="openTestModal()" class="bg-sama-accent hover:bg-orange-600 text-white text-lg px-8 py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3 transform hover:scale-105 duration-200">
+                        <i class="fa-solid fa-dna"></i> ¿CUÁL ES MI DOSHA?
+                    </button>
+                    <a href="#ofertas" class="bg-white hover:bg-gray-50 text-sama-dark border-2 border-sama-dark text-lg px-8 py-4 rounded-full font-bold transition shadow-md flex items-center justify-center">
+                        Ver Programas
+                    </a>
+                </div>
+                <p class="text-sm text-gray-500 mt-4 italic">
+                    <i class="fa-regular fa-clock mr-1"></i> Te tomará menos de 3 minutos. Recibí tu diagnóstico y plan de acción.
+                </p>
+            </div>
+
+            <!-- Visual Hook -->
+            <div class="md:w-1/2 relative flex justify-center">
+                <div class="relative w-full max-w-md">
+                    <!-- Background Blobs -->
+                    <div class="absolute top-10 -left-10 w-64 h-64 bg-sama-primary/20 rounded-full blur-3xl mix-blend-multiply filter animate-pulse"></div>
+                    <div class="absolute bottom-10 -right-10 w-64 h-64 bg-sama-accent/20 rounded-full blur-3xl mix-blend-multiply filter animate-pulse" style="animation-delay: 2s"></div>
+                    
+                    <!-- Main Image Container -->
+                    <div class="relative z-10 organic-blob overflow-hidden shadow-2xl border-4 border-white h-[500px] w-full bg-gray-200">
+                        <!-- REPLACE THIS SRC WITH DR NICASIO'S PHOTO -->
+                        <img src="https://placehold.co/600x800/749C75/ffffff?text=Foto+Dr.+Nicasio" alt="Dr. Nicasio Cavilla" class="object-cover w-full h-full">
+                    </div>
+
+                    <!-- Floating Badge (Social Proof) -->
+                    <div class="absolute bottom-10 -left-6 bg-white p-4 rounded-xl shadow-lg z-20 flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
+                        <div class="bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fa-solid fa-user-doctor text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sama-dark text-lg">23 Años</p>
+                            <p class="text-xs text-gray-500 uppercase tracking-wide">de Experiencia Médica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- The Problem Section (Interactive) -->
+    <section id="problema" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-serif text-3xl md:text-4xl text-sama-dark font-bold mb-4">¿Te suena familiar alguna de estas situaciones?</h2>
+                <p class="text-gray-600">Muchas veces los síntomas son el lenguaje del cuerpo pidiendo un cambio. Hacé clic en las tarjetas que resuenen con vos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto" id="problemGrid">
+                <!-- Cards will be injected by JS -->
+            </div>
+            
+            <div id="problemSummary" class="hidden mt-10 p-6 bg-sama-light border-l-4 border-sama-accent rounded-r-lg max-w-4xl mx-auto text-center md:text-left animate-pulse">
+                <p class="text-lg text-sama-dark font-medium">
+                    <i class="fa-solid fa-circle-check text-sama-accent mr-2"></i>
+                    No estás solo/a. Esto es más común de lo que creés y <span class="font-bold">tiene solución</span> a través del Sistema Sama Sana.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Method Section (Solution) -->
+    <section id="metodo" class="py-20 bg-sama-base relative">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <!-- Explanation -->
+                <div class="lg:w-1/2">
+                    <h2 class="font-serif text-3xl md:text-4xl text-sama-dark font-bold mb-6">El Sistema Sama Sana</h2>
+                    <p class="text-gray-600 mb-6 text-lg">
+                        No es una dieta más. Es un camino de autoconocimiento y salud sostenible que integra la ciencia médica moderna con la sabiduría del Ayurveda.
+                    </p>
+                    <p class="text-gray-600 mb-8">
+                        Para lograr un equilibrio real, trabajamos sobre <strong>4 Inteligencias</strong> simultáneamente. Si una falla, el sistema se desequilibra.
+                    </p>
+
+                    <!-- Accordion for 4 Intelligences -->
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-green-500">
+                            <h4 class="font-bold text-sama-dark flex items-center">
+                                <i class="fa-solid fa-apple-whole w-8 text-green-600"></i> Inteligencia Nutricional
+                            </h4>
+                            <p class="text-sm text-gray-500 mt-1 ml-8">Alimentación consciente adecuada a tu biotipo.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-blue-500">
+                            <h4 class="font-bold text-sama-dark flex items-center">
+                                <i class="fa-solid fa-brain w-8 text-blue-600"></i> Inteligencia Intelectual
+                            </h4>
+                            <p class="text-sm text-gray-500 mt-1 ml-8">Rutinas de vida Saludables.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-orange-500">
+                            <h4 class="font-bold text-sama-dark flex items-center">
+                                <i class="fa-solid fa-heart w-8 text-orange-600"></i> Inteligencia Emocional
+                            </h4>
+                            <p class="text-sm text-gray-500 mt-1 ml-8">Gestionar emociones y establecer relaciones amorosas armónicas.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-purple-500">
+                            <h4 class="font-bold text-sama-dark flex items-center">
+                                <i class="fa-solid fa-om w-8 text-purple-600"></i> Inteligencia Espiritual
+                            </h4>
+                            <p class="text-sm text-gray-500 mt-1 ml-8">Conexión con el propósito y la paz interior.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualization -->
+                <div class="lg:w-1/2 w-full">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="text-center font-bold text-gray-500 mb-4 text-sm uppercase tracking-widest">Balance de las 4 Inteligencias</h3>
+                        <!-- Chart Container - Responsive -->
+                        <div class="chart-container">
+                            <canvas id="intelligenceChart"></canvas>
+                        </div>
+                        <div class="flex justify-center mt-4 space-x-4 text-xs text-gray-500">
+                            <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-gray-300 mr-2"></span> Desequilibrio Común</div>
+                            <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-sama-primary mr-2"></span> Objetivo Sama</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Ingredients of Success -->
+            <div class="mt-20">
+                <h2 class="font-serif text-3xl text-center text-sama-dark font-bold mb-12">Los tres ingredientes del éxito</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6 bg-white rounded-xl shadow-md card-hover">
+                        <div class="w-16 h-16 bg-sama-light rounded-full flex items-center justify-center text-sama-primary text-2xl mx-auto mb-4">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-sama-dark mb-2">1. Determinación</h3>
+                        <p class="text-gray-600 text-sm">El compromiso inquebrantable con tus objetivos de salud.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-xl shadow-md card-hover border-t-4 border-sama-accent">
+                        <div class="w-16 h-16 bg-sama-accent/10 rounded-full flex items-center justify-center text-sama-accent text-2xl mx-auto mb-4">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-sama-dark mb-2">2. Estrategia Probada</h3>
+                        <p class="text-gray-600 text-sm">El mapa paso a paso, las herramientas y la guía de un médico experto.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-xl shadow-md card-hover">
+                        <div class="w-16 h-16 bg-sama-light rounded-full flex items-center justify-center text-sama-primary text-2xl mx-auto mb-4">
+                            <i class="fa-solid fa-person-digging"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-sama-dark mb-2">3. Trabajo Interno</h3>
+                        <p class="text-gray-600 text-sm">Práctica adecuada, desapego y gestión emocional.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authority Bio Section (Updated) -->
+    <section id="bio" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="bg-sama-dark rounded-3xl overflow-hidden shadow-2xl">
+                <div class="flex flex-col lg:flex-row">
+                    <!-- Image Area -->
+                    <div class="lg:w-1/3 relative h-96 lg:h-auto">
+                        <!-- REPLACE THIS SRC WITH BIO PHOTO (e.g. from PDF with orange sweater) -->
+                        <img src="https://placehold.co/600x800/486249/ffffff?text=Nicasio+Accion" alt="Dr. Nicasio Cavilla" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-sama-dark via-transparent to-transparent opacity-80 lg:bg-gradient-to-r"></div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="lg:w-2/3 p-8 md:p-12 text-white">
+                        <h2 class="font-serif text-3xl md:text-4xl font-bold mb-2">Dr. Nicasio Cavilla</h2>
+                        <div class="text-gray-300 text-sm mb-4 font-mono">MN 109547 - MP 95329</div>
+                        
+                        <h3 class="text-sama-accent font-bold uppercase tracking-wide text-sm mb-6">"Apoderando pacientes desde el 2002"</h3>
+                        
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            Formado en la Universidad del Salvador y especializado en Ayurveda tras viajar por India, Marruecos y Latinoamérica, el Dr. Nicasio es el puente entre la ciencia moderna y la sabiduría tradicional.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-graduation-cap text-sama-accent mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Formación Rigurosa</h4>
+                                    <p class="text-xs text-gray-400">Medicina General, Nutrición y Ayurveda.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-earth-asia text-sama-accent mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Sabiduría Ancestral</h4>
+                                    <p class="text-xs text-gray-400">Aprendizaje directo con Vaidyas en India.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-users-viewfinder text-sama-accent mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Líder Educativo</h4>
+                                    <p class="text-xs text-gray-400">Fundador Academia Sama Marga.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-hand-holding-heart text-sama-accent mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-bold">Sanación Activa</h4>
+                                    <p class="text-xs text-gray-400">"Toma las riendas de tu salud."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-600 pt-6">
+                            <p class="italic text-gray-300 text-sm">"Mi misión es simple: apoderarte para que te vuelvas tu propia/o médica/o y empieces a construir tu salud."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Ladder (Offers) Section -->
+    <section id="ofertas" class="py-20 bg-sama-light/40">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-3xl md:text-4xl text-sama-dark font-bold mb-4">¿Cómo puedo ayudarte hoy?</h2>
+                <p class="text-gray-600">Elegí el camino que mejor se adapte a tu momento actual.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="filterOffers('all')" class="offer-filter-btn active bg-sama-dark text-white px-6 py-2 rounded-full text-sm font-bold transition">Ver Todo</button>
+                <button onclick="filterOffers('start')" class="offer-filter-btn bg-white text-sama-text border hover:bg-gray-50 px-6 py-2 rounded-full text-sm font-bold transition">Empezar</button>
+                <button onclick="filterOffers('grow')" class="offer-filter-btn bg-white text-sama-text border hover:bg-gray-50 px-6 py-2 rounded-full text-sm font-bold transition">Acompañamiento</button>
+                <button onclick="filterOffers('deep')" class="offer-filter-btn bg-white text-sama-text border hover:bg-gray-50 px-6 py-2 rounded-full text-sm font-bold transition">Profundizar</button>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Offer 1: Tripwire -->
+                <div class="offer-card start bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 border-t-4 border-blue-400">
+                    <div class="p-6 flex-grow">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Primeros Pasos</span>
+                        <h3 class="font-serif text-2xl font-bold text-sama-dark mt-4 mb-2">Curso Iniciación</h3>
+                        <p class="text-gray-500 text-sm mb-6">Los fundamentos del Sistema Sama Sana para aplicar hoy mismo.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Entendé tu cuerpo</li>
+                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Rutinas básicas</li>
+                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Victoria rápida</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-gray-50 border-t">
+                        <p class="text-3xl font-bold text-sama-dark mb-4">$27 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition">Empezar Ahora</button>
+                    </div>
+                </div>
+
+                <!-- Offer 2: Membership -->
+                <div class="offer-card grow bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 border-t-4 border-sama-primary relative">
+                    <div class="absolute top-0 right-0 bg-sama-accent text-white text-xs font-bold px-3 py-1 rounded-bl-lg">RECOMENDADO</div>
+                    <div class="p-6 flex-grow">
+                        <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Membresía</span>
+                        <h3 class="font-serif text-2xl font-bold text-sama-dark mt-4 mb-2">Comunidad Sama Sana</h3>
+                        <p class="text-gray-500 text-sm mb-6">Tu tribu de salud. Acompañamiento continuo y Q&A grupal.</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Sesiones en vivo</li>
+                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Biblioteca de contenido</li>
+                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Grupo de apoyo</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-gray-50 border-t">
+                        <p class="text-3xl font-bold text-sama-dark mb-4">$47 <span class="text-sm font-normal text-gray-500">USD / mes</span></p>
+                        <button class="w-full bg-sama-primary hover:bg-green-700 text-white font-bold py-3 rounded-lg transition">Unirme a la Tribu</button>
+                    </div>
+                </div>
+
+                <!-- Offer 3: Consultations (Split) -->
+                <div class="offer-card deep bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 border-t-4 border-purple-500 md:col-span-2 lg:col-span-1">
+                    <div class="p-6 flex-grow">
+                        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Atención Personalizada</span>
+                        <h3 class="font-serif text-2xl font-bold text-sama-dark mt-4 mb-2">Sesión Médica 1-1</h3>
+                        <p class="text-gray-500 text-sm mb-6">Diagnóstico profundo y plan de tratamiento específico.</p>
+                        
+                        <!-- Toggle for Team vs Dr -->
+                        <div class="bg-gray-100 p-1 rounded-lg flex mb-4">
+                            <button onclick="toggleConsult('team')" id="btn-team" class="w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-dark transition">Equipo Sama</button>
+                            <button onclick="toggleConsult('dr')" id="btn-dr" class="w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition">Dr. Nicasio</button>
+                        </div>
+
+                        <div id="content-team">
+                            <p class="text-xs text-gray-500 mb-2">Atención por médicos formados en Academia Sama Marga.</p>
+                            <ul class="space-y-2 mb-4">
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Método Sama Exacto</li>
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Disponibilidad Rápida</li>
+                            </ul>
+                            <div class="mt-auto">
+                                <p class="text-2xl font-bold text-sama-dark mb-2">$50 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                                <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition">Agendar Equipo</button>
+                            </div>
+                        </div>
+
+                        <div id="content-dr" class="hidden">
+                            <p class="text-xs text-gray-500 mb-2">Atención exclusiva con el Dr. Nicasio (Lista de Espera).</p>
+                            <ul class="space-y-2 mb-4">
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Mentoría Directa</li>
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Casos Complejos</li>
+                            </ul>
+                            <div class="mt-auto">
+                                <p class="text-2xl font-bold text-sama-dark mb-2">$200 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                                <button class="w-full bg-gray-800 hover:bg-black text-white font-bold py-3 rounded-lg transition">Aplicar Lista Espera</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                 <!-- Offer 4: High Ticket (Full Width on Mobile) -->
+                 <div class="offer-card deep hidden lg:block lg:col-span-3 bg-gradient-to-r from-sama-dark to-sama-primary rounded-2xl shadow-lg text-white p-8 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 h-full w-1/3 bg-white/10 skew-x-12"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between">
+                        <div class="md:w-2/3">
+                            <span class="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full uppercase mb-2 inline-block">Experiencia Premium</span>
+                            <h3 class="font-serif text-3xl font-bold mb-2">Programa Hotel Wellness Sama</h3>
+                            <p class="text-gray-100 mb-4">4 noches de inmersión total. Desintoxicación, alimentación y aprendizaje intensivo.</p>
+                        </div>
+                        <div class="md:w-1/3 text-right">
+                            <button class="bg-white text-sama-dark hover:bg-gray-100 font-bold px-8 py-3 rounded-full shadow-lg transition transform hover:scale-105">
+                                Ver Detalles del Retiro
+                            </button>
+                        </div>
+                    </div>
+                 </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof (Updated with Avatars and Podcast Link) -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="font-serif text-3xl text-center text-sama-dark font-bold mb-12">Historias de Transformación</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
+                    <img src="https://placehold.co/100x100/749C75/ffffff?text=MV" alt="Miriam V." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+                    <div class="flex justify-center text-yellow-400 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-4 flex-grow">"En 20 días me había desinflamado y bajé 8 kilos. Pasé de estar triste y aislada a tener ganas de conectar."</p>
+                    <div class="font-bold text-sama-dark mb-4">- Miriam V.</div>
+                    <a href="https://open.spotify.com/show/your-podcast-link" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
+                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
+                    </a>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
+                    <img src="https://placehold.co/100x100/D98324/ffffff?text=DS" alt="Diego S." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+                    <div class="flex justify-center text-yellow-400 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Se me normalizó la presión, no tengo más colesterol y volví a sentirme realmente bien."</p>
+                    <div class="font-bold text-sama-dark mb-4">- Diego S.</div>
+                    <a href="https://open.spotify.com/show/your-podcast-link" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
+                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
+                    </a>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
+                    <img src="https://placehold.co/100x100/486249/ffffff?text=LE" alt="Liliana E." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+                    <div class="flex justify-center text-yellow-400 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Este camino me dio contención y claridad. Honestamente, me cambió la vida."</p>
+                    <div class="font-bold text-sama-dark mb-4">- Liliana E.</div>
+                    <a href="https://open.spotify.com/show/your-podcast-link" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
+                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-sama-dark text-white py-12">
+        <div class="container mx-auto px-4 flex flex-col items-center text-center">
+            
+            <div class="mb-8">
+                <h3 class="font-serif text-2xl font-bold">Sama<span class="font-light">Equilibrio</span></h3>
+                <p class="text-gray-300 text-sm mt-2 font-medium tracking-wide">medicina, conciencia y empatía</p>
+            </div>
+
+            <div class="flex space-x-8 mb-8">
+                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-instagram text-2xl"></i></a>
+                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-facebook text-2xl"></i></a>
+                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-youtube text-2xl"></i></a>
+                <a href="#" class="hover:text-sama-accent transition transform hover:scale-110"><i class="fa-brands fa-spotify text-2xl"></i></a>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 w-full max-w-2xl flex flex-col items-center">
+                <button onclick="openTestModal()" class="text-sama-accent hover:text-white transition font-bold text-sm mb-4">
+                    ¿Aún no sabés tu Biotipo? Hacé el Test
+                </button>
+                <p class="text-gray-500 text-sm">&copy; 2026 Sama Equilibrio. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lead Magnet Modal (Simulated Biotype Test) -->
+    <div id="testModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all scale-95 opacity-0" id="modalContent">
+            
+            <!-- Step 1: Intro -->
+            <div id="modalStep1" class="p-8 text-center">
+                <div class="w-16 h-16 bg-sama-light rounded-full flex items-center justify-center text-sama-primary text-3xl mx-auto mb-4">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-sama-dark mb-2">Descubrí tu Biotipo (Dosha)</h3>
+                <p class="text-gray-600 mb-6">Respondé 3 preguntas clave para entender tu naturaleza única según el Ayurveda.</p>
+                <button onclick="nextStep(2)" class="bg-sama-accent hover:bg-orange-600 text-white w-full py-3 rounded-lg font-bold transition">Comenzar Test</button>
+                <button onclick="closeTestModal()" class="mt-4 text-gray-400 text-sm hover:text-gray-600">Cancelar</button>
+            </div>
+
+            <!-- Step 2: Question (Simulated) -->
+            <div id="modalStep2" class="p-8 hidden">
+                <div class="w-full bg-gray-200 h-2 rounded-full mb-6">
+                    <div class="bg-sama-primary h-2 rounded-full w-1/3"></div>
+                </div>
+                <h4 class="font-bold text-lg mb-4">¿Cómo es tu nivel de energía habitualmente?</h4>
+                <div class="space-y-3">
+                    <button onclick="nextStep(3)" class="w-full text-left p-3 border rounded-lg hover:bg-sama-light hover:border-sama-primary transition">Variable, a veces mucha, a veces poca.</button>
+                    <button onclick="nextStep(3)" class="w-full text-left p-3 border rounded-lg hover:bg-sama-light hover:border-sama-primary transition">Intensa y enfocada, pero me irrito si tengo hambre.</button>
+                    <button onclick="nextStep(3)" class="w-full text-left p-3 border rounded-lg hover:bg-sama-light hover:border-sama-primary transition">Estable, lenta para arrancar pero duradera.</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Capture (Gate) -->
+            <div id="modalStep3" class="p-8 text-center hidden">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-3xl mx-auto mb-4">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-sama-dark mb-2">¡Análisis Completado!</h3>
+                <p class="text-gray-600 mb-6">Ingresá tu email para recibir tu <strong>Diagnóstico de Biotipo</strong> y tu Plan de Acción personalizado.</p>
+                
+                <form onsubmit="finishTest(event)" class="space-y-4">
+                    <input type="text" placeholder="Tu Nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-sama-primary" required>
+                    <input type="email" placeholder="Tu Mejor Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-sama-primary" required>
+                    <button type="submit" class="bg-sama-primary hover:bg-green-700 text-white w-full py-3 rounded-lg font-bold transition shadow-lg">
+                        VER MIS RESULTADOS
+                    </button>
+                </form>
+                <p class="text-xs text-gray-400 mt-4">También recibirás mis consejos semanales. Darse de baja es fácil.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data for Problem Section
+        const problems = [
+            { icon: "fa-heart-pulse", text: "Estudios normales, pero te sentís mal" },
+            { icon: "fa-brain", text: "Abrumado/a con tanta información" },
+            { icon: "fa-user-nurse", text: "Medicina convencional insuficiente" },
+            { icon: "fa-face-tired", text: "Emociones obstaculizan tu día" },
+            { icon: "fa-spa", text: "Necesidad de conexión espiritual" },
+            { icon: "fa-carrot", text: "Buscás hábitos simples y reales" }
+        ];
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProblems();
+            initCharts();
+        });
+
+        // --- Render Problems ---
+        function renderProblems() {
+            const grid = document.getElementById('problemGrid');
+            problems.forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-xl border border-gray-100 shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:border-sama-primary group";
+                card.onclick = () => toggleProblem(card);
+                card.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 group-hover:bg-sama-light flex items-center justify-center transition-colors">
+                            <i class="fa-solid ${p.icon} text-gray-400 group-hover:text-sama-primary"></i>
+                        </div>
+                        <p class="text-gray-700 font-medium group-hover:text-sama-dark">${p.text}</p>
+                        <i class="fa-regular fa-circle text-gray-300 ml-auto check-icon"></i>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleProblem(card) {
+            const icon = card.querySelector('.check-icon');
+            if (card.classList.contains('ring-2')) {
+                card.classList.remove('ring-2', 'ring-sama-accent', 'bg-orange-50');
+                icon.classList.remove('fa-solid', 'fa-circle-check', 'text-sama-accent');
+                icon.classList.add('fa-regular', 'fa-circle', 'text-gray-300');
+            } else {
+                card.classList.add('ring-2', 'ring-sama-accent', 'bg-orange-50');
+                icon.classList.remove('fa-regular', 'fa-circle', 'text-gray-300');
+                icon.classList.add('fa-solid', 'fa-circle-check', 'text-sama-accent');
+                
+                // Show summary if hidden
+                document.getElementById('problemSummary').classList.remove('hidden');
+            }
+        }
+
+        // --- Offer Filter ---
+        function filterOffers(category) {
+            // Update buttons
+            document.querySelectorAll('.offer-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-sama-dark', 'text-white');
+                btn.classList.add('bg-white', 'text-sama-text');
+                if (btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.remove('bg-white', 'text-sama-text');
+                    btn.classList.add('bg-sama-dark', 'text-white');
+                }
+            });
+
+            // Filter cards
+            document.querySelectorAll('.offer-card').forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    if (card.classList.contains(category)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // --- Consult Toggle ---
+        function toggleConsult(type) {
+            const btnTeam = document.getElementById('btn-team');
+            const btnDr = document.getElementById('btn-dr');
+            const contentTeam = document.getElementById('content-team');
+            const contentDr = document.getElementById('content-dr');
+
+            if (type === 'team') {
+                btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-dark transition";
+                btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
+                contentTeam.classList.remove('hidden');
+                contentDr.classList.add('hidden');
+            } else {
+                btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-dark transition";
+                btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
+                contentDr.classList.remove('hidden');
+                contentTeam.classList.add('hidden');
+            }
+        }
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('testModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openTestModal() {
+            modal.classList.remove('hidden');
+            // Small delay for transition
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeTestModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // Reset steps
+                document.getElementById('modalStep1').classList.remove('hidden');
+                document.getElementById('modalStep2').classList.add('hidden');
+                document.getElementById('modalStep3').classList.add('hidden');
+            }, 300);
+        }
+
+        function nextStep(step) {
+            document.getElementById('modalStep1').classList.add('hidden');
+            document.getElementById('modalStep2').classList.add('hidden');
+            document.getElementById('modalStep3').classList.add('hidden');
+            
+            document.getElementById(`modalStep${step}`).classList.remove('hidden');
+        }
+
+        function finishTest(e) {
+            e.preventDefault();
+            alert("¡Gracias! En un entorno real, aquí se enviarían los datos a tu CRM y recibirían el email.");
+            closeTestModal();
+        }
+
+        // --- Charts ---
+        function initCharts() {
+            // Radar Chart for 4 Intelligences
+            const ctxInt = document.getElementById('intelligenceChart').getContext('2d');
+            new Chart(ctxInt, {
+                type: 'radar',
+                data: {
+                    labels: ['Nutricional', 'Intelectual', 'Emocional', 'Espiritual'],
+                    datasets: [{
+                        label: 'Desequilibrio Común',
+                        data: [60, 80, 40, 30],
+                        backgroundColor: 'rgba(200, 200, 200, 0.2)',
+                        borderColor: 'rgba(200, 200, 200, 1)',
+                        pointBackgroundColor: 'rgba(200, 200, 200, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Equilibrio Sama',
+                        data: [90, 90, 90, 90],
+                        backgroundColor: 'rgba(116, 156, 117, 0.2)', // Sama Primary
+                        borderColor: '#749C75',
+                        pointBackgroundColor: '#749C75',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#eee' },
+                            grid: { color: '#eee' },
+                            pointLabels: {
+                                font: { size: 12, family: 'Lato' },
+                                color: '#486249'
+                            },
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
