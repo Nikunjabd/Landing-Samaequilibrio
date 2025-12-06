@@ -17,19 +17,20 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Chosen Palette: Sama Nature REFINED (Orange Boost) -->
+ <!-- Configuración de Colores basada en Isotipo -->
     <script>
         tailwind.config = {
+            darkMode: 'class', // Deshabilita modo oscuro automático
             theme: {
                 extend: {
                     colors: {
                         sama: {
-                            base: '#FDFCDC',    // Cream background
-                            primary: '#A3C558', // Isotype Light Green
-                            dark: '#6B8E23',    // Isotype Darker Green
-                            accent: '#fdd17c',  // Isotype Orange (UPDATED & MORE PROMINENT)
-                            light: '#E9F5DB',   // Very Light Green
-                            text: '#2C3E2D'     // Dark Text
+                            base: '#FDFCDC',    // Crema de fondo (Isotipo fondo)
+                            primary: '#A3C558', // Verde Claro (Isotipo remolinos claros)
+                            dark: '#6B8E23',    // Verde Oliva (Isotipo remolinos oscuros/textos)
+                            accent: '#fdd17c',  // Naranja/Amarillo (Isotipo puntos - PROTAGONISTA)
+                            light: '#E9F5DB',   // Verde muy pálido para secciones alternas
+                            text: '#2C3E2D'     // Verde muy oscuro casi negro para lectura
                         }
                     },
                     fontFamily: {
@@ -42,10 +43,12 @@
     </script>
 
     <style>
-        body {
-            background-color: #FDFCDC;
-            color: #2C3E2D;
+        /* Forzar fondo claro incluso si el móvil está en modo oscuro */
+        html, body {
+            background-color: #FDFCDC !important;
+            color: #2C3E2D !important;
         }
+        
         .chart-container {
             position: relative;
             width: 100%;
@@ -55,20 +58,24 @@
             height: 350px;
             max-height: 400px;
         }
-        /* Updated pattern to use Accent Orange for warmth */
+        
+        /* Patrón de fondo sutil en naranja */
         .hero-pattern {
             background-image: radial-gradient(#fdd17c 1px, transparent 1px);
             background-size: 24px 24px;
-            opacity: 0.3;
+            opacity: 0.4;
         }
+        
         .fade-in {
             animation: fadeIn 0.8s ease-in;
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Custom scrollbar */
+        
+        /* Scrollbar personalizada en verdes */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -79,27 +86,29 @@
             background: #A3C558;
             border-radius: 4px;
         }
+        
         .card-hover:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(107, 142, 35, 0.15);
         }
+        
         .organic-blob {
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-sama-base text-sama-text">
 
     <!-- Navigation -->
     <nav class="bg-white/95 backdrop-blur-md fixed w-full z-50 shadow-sm border-b border-sama-primary/20">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2 pl-4 md:pl-0">
+            <div class="flex items-center pl-2 md:pl-6">
                 <div class="h-16 w-auto flex items-center justify-center bg-transparent overflow-hidden">
                      <img src="isotiposamat.png" alt="Sama Equilibrio Logo" class="h-full object-contain">
                 </div>
             </div>
             <div class="hidden md:flex space-x-8 text-sama-text font-medium">
-                <a href="#problema" class="hover:text-sama-dark transition">¿Por qué me siento así?</a>
+                <a href="#problema" class="hover:text-sama-dark transition">¿Podemos ayudarte si?</a>
                 <a href="#metodo" class="hover:text-sama-dark transition">El Método</a>
                 <a href="#bio" class="hover:text-sama-dark transition">Dr. Nicasio</a>
                 <a href="#ofertas" class="hover:text-sama-dark transition">Programas</a>
@@ -120,27 +129,28 @@
             <div class="md:w-1/2 text-center md:text-left fade-in pl-4 md:pl-0">
                 <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-sama-text font-bold leading-tight mb-6">
                     Ayurveda: Salud y Bienestar real,<br>
-                    <span class="text-sama-dark italic">(en tus manos)</span>
+                    <span class="text-sama-dark italic">en tus manos</span>
                 </h1>
                 <p class="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
                     Conectá la precisión de la medicina moderna con tu sabiduría interior. Dejá atrás las "soluciones mágicas" y recuperá el control de tu salud con la guia de un médico experto.
                 </p>
                 
-                <!-- Layout ajustado: Botones y textos agrupados verticalmente para alinear la leyenda -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start items-start">
+                        <!-- Layout de Botones Reestructurado -->
+                <div class="flex flex-col sm:flex-row gap-8 justify-center md:justify-start items-start">
                     
-                    <!-- Grupo Botón Test + Leyenda -->
+                    <!-- GRUPO 1: Botón Principal + Leyenda (Juntos) -->
                     <div class="flex flex-col items-center sm:items-start gap-3 w-full sm:w-auto">
-                        <button onclick="openTestModal()" class="bg-sama-accent hover:bg-orange-300 text-sama-dark w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3 transform hover:scale-105 duration-200 border border-orange-200">
+                        <button onclick="openTestModal()" class="bg-sama-accent hover:bg-orange-300 text-sama-text w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3 transform hover:scale-105 duration-200 border border-orange-200">
                             <i class="fa-solid fa-dna"></i> ¿CUÁL ES MI DOSHA?
                         </button>
+                        <!-- La leyenda ahora está atada a este botón -->
                         <p class="text-xs text-gray-600 italic leading-tight text-center sm:text-left max-w-[240px] mx-auto sm:mx-0">
                             <i class="fa-regular fa-clock mr-1 text-sama-dark"></i> Te tomará menos de 3 minutos. Recibí tu diagnóstico y plan de acción.
                         </p>
                     </div>
 
-                    <!-- Botón Secundario -->
-                    <a href="#ofertas" class="bg-white hover:bg-gray-50 text-sama-text border-2 border-sama-primary w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-md flex items-center justify-center">
+                    <!-- GRUPO 2: Botón Secundario (Solo) -->
+                    <a href="#ofertas" class="bg-white hover:bg-sama-light text-sama-text border-2 border-sama-primary w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-md flex items-center justify-center">
                         Ver Programas
                     </a>
                 </div>
