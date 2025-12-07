@@ -81,8 +81,7 @@
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         }
 
-               /* Estilos para el menú móvil (INLINE / Acordeón) */
-        /* Eliminamos 'hidden' de CSS puro para manejarlo con clases de Tailwind y JS */
+      /* Estilos para el menú móvil (INLINE / Acordeón) */
         #mobile-menu {
             transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
             overflow: hidden;
@@ -92,10 +91,11 @@
             max-height: 500px; /* Altura suficiente para mostrar items */
             opacity: 1;
         }
-        /* Clase para cuando está cerrado */
+        /* Clase para cuando está cerrado - Oculto totalmente */
         #mobile-menu.closed {
             max-height: 0;
             opacity: 0;
+            pointer-events: none; /* Asegura que no se pueda hacer clic si está invisible */
         }
         
         /* Ajuste fino para la foto del Dr. */
@@ -108,9 +108,13 @@
 <!-- Body con clases forzadas -->
 <body class="antialiased !bg-sama-base !text-sama-text">
 
-    <!-- Navigation (Fondo Blanco para diferenciar) -->
-    <nav class="!bg-white shadow-sm border-b border-sama-primary/20 fixed w-full z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center relative">
+ <!-- Navigation -->
+    <!-- 'sticky top-0' permite que el menú móvil empuje el contenido si está dentro del flujo, 
+         pero para mantener la barra fija al hacer scroll y tener menú acordeón, necesitamos una estructura específica.
+         Aquí usamos 'fixed' para la barra superior, y el menú móvil se despliega como un bloque absoluto justo debajo. -->
+    <nav class="!bg-white shadow-sm border-b border-sama-primary/20 fixed w-full z-50 top-0 left-0">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3 relative z-50 bg-white">
             
             <!-- Logo -->
             <div class="flex items-center pl-2">
@@ -134,14 +138,15 @@
 
                 <!-- Botón Hamburguesa -->
                 <div class="md:hidden flex items-center">
-                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light">
+                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light z-50">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
-            </div
+            </div>
 
-            <!-- Menú Móvil Desplegable (SOLUCIÓN: Absolute, fondo blanco sólido, sin opacidad) -->
-            <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-xl z-40">
+            <!-- Menú Móvil Desplegable (SOLUCIÓN: Absolute debajo del header, fondo blanco sólido) -->
+            <!-- Usamos 'absolute' para que aparezca justo debajo de la barra blanca fija. -->
+            <div id="mobile-menu" class="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-xl z-40 closed">
                 <div class="flex flex-col px-6 py-6 space-y-4 text-center">
                     <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-gray-100 text-lg">Soluciones</a>
                     <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-gray-100 text-lg">El Método</a>
