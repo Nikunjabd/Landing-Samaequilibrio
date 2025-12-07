@@ -124,28 +124,27 @@
                 ¿Cuál es mi dosha?
             </a>
 
-            <!-- Botón Hamburguesa -->
-            <div class="md:hidden flex items-center z-50">
-                <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2">
+          <!-- Botón Hamburguesa (Móvil) -->
+            <div class="md:hidden flex items-center">
+                <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Menú Móvil (Full Screen Overlay) -->
-        <div id="mobile-menu" class="fixed inset-0 bg-[#FDFCDC] z-40 flex flex-col items-center justify-center space-y-8 md:hidden">
-            <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-sama-dark focus:outline-none">
-                <i class="fa-solid fa-xmark text-3xl"></i>
-            </button>
-            
-            <a href="#problema" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">Soluciones</a>
-            <a href="#metodo" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">El Método</a>
-            <a href="#bio" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">Dr. Nicasio</a>
-            <a href="#ofertas" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">Programas</a>
-            
-            <a href="https://tu-url-del-test.com" target="_blank" class="bg-sama-accent text-sama-text px-8 py-4 rounded-full font-bold text-xl shadow-md border border-orange-200/50 mt-8">
-                ¿Cuál es mi dosha?
-            </a>
+        <!-- Menú Móvil Desplegable (INLINE - Empuja contenido) -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-sama-primary/20 w-full shadow-lg">
+            <div class="flex flex-col px-6 py-6 space-y-4 text-center">
+                <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">Soluciones</a>
+                <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">El Método</a>
+                <a href="#bio" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">Dr. Nicasio</a>
+                <a href="#ofertas" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 text-lg">Programas</a>
+                
+                <!-- CTA Móvil -->
+                <a href="https://tu-url-del-test.com" target="_blank" onclick="toggleMobileMenu()" class="block bg-sama-accent text-sama-text px-6 py-4 rounded-full font-bold w-full shadow-md border border-orange-200/50 mt-4 text-lg">
+                    ¿Cuál es mi dosha?
+                </a>
+            </div>
         </div>
     </nav>
 
