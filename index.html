@@ -124,7 +124,7 @@
                 ¿Cuál es mi dosha?
             </a>
 
-     <!-- Botón Hamburguesa -->
+                    <!-- Botón Hamburguesa -->
                 <div class="md:hidden flex items-center">
                     <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light">
                         <i class="fa-solid fa-bars text-2xl"></i>
@@ -132,10 +132,12 @@
                 </div>
             </div>
 
-            <!-- Menú Móvil Desplegable (INLINE) -->
-            <!-- Importante: position relative para que empuje si el nav no fuera fixed, 
-                 pero como es fixed/sticky, aparecerá debajo de la barra header. -->
-            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white w-full absolute left-0 top-full shadow-lg z-40">
+            <!-- Menú Móvil (INLINE REAL - Dentro del contenedor del nav pero oculto por defecto) -->
+            <!-- Importante: No tiene 'absolute' ni 'fixed', por lo que empujará el contenido si el nav crece, 
+                 o se comportará como un bloque debajo del header si el nav tiene altura fija (ojo aqui).
+                 Para un fixed navbar, el menú móvil debe estar DENTRO del fixed nav y tener un max-height con scroll si es necesario, 
+                 o ser absolute. Para que NO tape la foto, lo ideal es que sea absolute pero con fondo sólido y que aparezca debajo de la barra. -->
+            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white w-full">
                 <div class="flex flex-col px-4 py-4 space-y-3 text-center">
                     <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2 border-b border-gray-50">Soluciones</a>
                     <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2 border-b border-gray-50">El Método</a>
@@ -151,7 +153,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-10 md:pt-20 pb-12 md:pb-20 overflow-hidden !bg-sama-base"> <!-- pt reducido al usar sticky nav -->
+    <!-- pt-28 para compensar la barra fija -->
+    <header class="relative pt-28 md:pt-36 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
         <div class="absolute inset-0 hero-pattern z-0"></div>
         
         <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
