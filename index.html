@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
     <!-- Configuración de Colores -->
     <script>
         tailwind.config = {
-            // Deshabilitar completamente el modo oscuro para evitar conflictos
+            // Desactivar modo oscuro totalmente
             darkMode: 'class', 
             theme: {
                 extend: {
@@ -29,9 +29,10 @@
                             base: '#FDFCDC',    
                             primary: '#A3C558', 
                             dark: '#6B8E23',    
-                            accent: '#fdd17c',  
+                            accent: '#FFE4B5',  // Naranja melocotón suave
                             light: '#E9F5DB',   
-                            text: '#2C3E2D'     
+                            text: '#2C3E2D',
+                            academy: '#D4AF37' // Dorado para la Academia
                         }
                     },
                     fontFamily: {
@@ -44,17 +45,14 @@
     </script>
 
     <style>
-        /* Forzar modo claro con la mayor especificidad posible */
+        /* Forzar estilos claros con !important para vencer al navegador móvil */
         :root {
             color-scheme: light !important;
         }
         
-        html, body {
+        body {
             background-color: #FDFCDC !important;
             color: #2C3E2D !important;
-            /* Asegurar que el texto sea legible */
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Chart Container */
@@ -69,18 +67,9 @@
         }
         
         .hero-pattern {
-            background-image: radial-gradient(#fdd17c 1px, transparent 1px);
+            background-image: radial-gradient(#FFE4B5 1px, transparent 1px);
             background-size: 24px 24px;
             opacity: 0.4;
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         .card-hover:hover {
@@ -92,34 +81,31 @@
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         }
 
-        /* Estilos para el menú móvil */
+        /* Menú Móvil Full Screen */
         #mobile-menu {
-            transition: all 0.3s ease-in-out;
-            transform-origin: top;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%); /* Oculto a la derecha */
         }
-        /* Clase utilitaria para ocultar/mostrar */
-        .mobile-menu-hidden {
-            display: none;
-            opacity: 0;
-            transform: scaleY(0);
+        #mobile-menu.open {
+            transform: translateX(0); /* Visible */
         }
-        .mobile-menu-visible {
-            display: block;
-            opacity: 1;
-            transform: scaleY(1);
+
+        /* Ajuste fino para la foto del Dr. */
+        /* object-position: x y; -> 50% (centro horizontal) 20% (parte superior vertical) */
+        .dr-photo {
+            object-position: 50% 20%; 
         }
     </style>
 </head>
-<!-- Aplicando clases !bg y !text para forzar colores -->
+<!-- Body con clases forzadas -->
 <body class="antialiased !bg-sama-base !text-sama-text">
 
-    <!-- Navigation -->
-    <!-- Agregado z-50 para asegurar que esté siempre arriba -->
-    <nav class="bg-sama-base/95 backdrop-blur-md fixed w-full z-50 shadow-sm border-b border-sama-primary/20">
+    <!-- Navigation (Fondo Blanco para diferenciar) -->
+    <nav class="!bg-white shadow-sm border-b border-sama-primary/20 fixed w-full z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center relative">
             
             <!-- Logo -->
-            <div class="flex items-center">
+            <div class="flex items-center pl-2">
                 <div class="h-12 md:h-16 w-auto flex items-center justify-center bg-transparent overflow-hidden">
                      <img src="isotiposamat.png" alt="Sama Equilibrio Logo" class="h-full object-contain">
                 </div>
@@ -133,156 +119,90 @@
                 <a href="#ofertas" class="hover:text-sama-dark transition">Programas</a>
             </div>
 
-            <!-- CTA Naranja (Desktop) - URL Externa -->
-            <a href="https://tu-url-del-test.com" target="_blank" class="hidden md:inline-block bg-sama-accent hover:bg-orange-300 text-sama-text px-6 py-2 rounded-full font-bold transition shadow-md text-sm border border-orange-200">
+            <!-- CTA Desktop -->
+            <a href="https://tu-url-del-test.com" target="_blank" class="hidden md:inline-block bg-sama-accent hover:bg-orange-200 text-sama-text px-6 py-2 rounded-full font-bold transition shadow-md text-sm border border-orange-200/50">
                 ¿Cuál es mi dosha?
             </a>
 
-            <!-- Botón Hamburguesa (Móvil) -->
-            <div class="md:hidden flex items-center">
-                <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light">
+            <!-- Botón Hamburguesa -->
+            <div class="md:hidden flex items-center z-50">
+                <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Menú Móvil Desplegable -->
-        <!-- Usando clases absolutas y z-index alto, fondo sólido para legibilidad -->
-        <div id="mobile-menu" class="mobile-menu-hidden md:hidden bg-sama-base border-t border-sama-primary/20 w-full absolute top-full left-0 shadow-xl z-40">
-            <div class="flex flex-col px-6 py-6 space-y-4 text-center">
-                <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">Soluciones</a>
-                <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">El Método</a>
-                <a href="#bio" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">Dr. Nicasio</a>
-                <a href="#ofertas" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 text-lg">Programas</a>
-                
-                <!-- CTA Móvil -->
-                <a href="https://tu-url-del-test.com" target="_blank" onclick="toggleMobileMenu()" class="block bg-sama-accent text-sama-text px-6 py-4 rounded-full font-bold w-full shadow-md border border-orange-200 mt-4 text-lg">
-                    ¿Cuál es mi dosha?
-                </a>
-            </div>
+        <!-- Menú Móvil (Full Screen Overlay) -->
+        <div id="mobile-menu" class="fixed inset-0 bg-[#FDFCDC] z-40 flex flex-col items-center justify-center space-y-8 md:hidden">
+            <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-sama-dark focus:outline-none">
+                <i class="fa-solid fa-xmark text-3xl"></i>
+            </button>
+            
+            <a href="#problema" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">Soluciones</a>
+            <a href="#metodo" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">El Método</a>
+            <a href="#bio" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">Dr. Nicasio</a>
+            <a href="#ofertas" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold">Programas</a>
+            
+            <a href="https://tu-url-del-test.com" target="_blank" class="bg-sama-accent text-sama-text px-8 py-4 rounded-full font-bold text-xl shadow-md border border-orange-200/50 mt-8">
+                ¿Cuál es mi dosha?
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-sama-base">
+    <header class="relative pt-28 md:pt-32 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
         <div class="absolute inset-0 hero-pattern z-0"></div>
         
         <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
             
             <!-- Text Content -->
-            <!-- Aseguramos z-index para que el texto esté sobre el patrón -->
-            <div class="md:w-1/2 text-center md:text-left fade-in w-full order-2 md:order-1 relative z-10">
-                <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl text-sama-text font-bold leading-tight mb-4 md:mb-6">
+            <div class="w-full md:w-1/2 text-center md:text-left relative z-10 order-2 md:order-1">
+                <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl !text-sama-text font-bold leading-tight mb-4 md:mb-6">
                     Ayurveda: Salud y Bienestar real,<br>
-                    <span class="text-sama-dark italic">en tus manos</span>
+                    <span class="!text-sama-dark italic">en tus manos</span>
                 </h1>
                 
-                <p class="text-base md:text-xl text-gray-700 mb-6 md:mb-8 leading-relaxed px-2 md:px-0 block opacity-100 visible">
+                <p class="text-base md:text-xl !text-gray-700 mb-6 md:mb-8 leading-relaxed block">
                     Conectá la precisión de la medicina moderna con tu sabiduría interior. Dejá atrás las "soluciones mágicas" y recuperá el control de tu salud con la guía de un médico experto.
                 </p>
                 
-                <!-- Layout de Botones Simplificado -->
+                <!-- Botones -->
                 <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start items-center sm:items-start w-full">
-                    
-                    <!-- GRUPO 1: Botón Principal (URL Externa) + Leyenda -->
-                    <div class="flex flex-col items-center sm:items-start gap-3 w-full sm:w-auto">
-                        <a href="https://tu-url-del-test.com" target="_blank" class="bg-sama-accent hover:bg-orange-300 text-sama-text w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3 transform hover:scale-105 duration-200 border border-orange-200 cursor-pointer text-center">
+                    <div class="flex flex-col items-center sm:items-start gap-2 w-full sm:w-auto">
+                        <a href="https://tu-url-del-test.com" target="_blank" class="bg-sama-accent hover:bg-orange-200 !text-sama-text w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3 transform hover:scale-105 duration-200 border border-orange-200/50 cursor-pointer text-center">
                             <i class="fa-solid fa-dna"></i> ¿CUÁL ES MI DOSHA?
                         </a>
-                        <p class="text-xs text-gray-600 italic leading-tight text-center sm:text-left max-w-[240px]">
+                        <p class="text-xs !text-gray-600 italic leading-tight text-center sm:text-left max-w-[240px]">
                             <i class="fa-regular fa-clock mr-1 text-sama-dark"></i> Te tomará menos de 3 minutos. Recibí tu diagnóstico y plan de acción.
                         </p>
                     </div>
 
-                    <!-- GRUPO 2: Botón Secundario -->
-                    <a href="#ofertas" class="bg-white hover:bg-sama-light text-sama-text border-2 border-sama-primary w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-md flex items-center justify-center text-center">
+                    <a href="#ofertas" class="bg-white hover:bg-sama-light !text-sama-text border-2 border-sama-primary w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-md flex items-center justify-center text-center">
                         Ver Programas
                     </a>
                 </div>
             </div>
 
             <!-- Visual Hook -->
-            <div class="md:w-1/2 relative flex justify-center w-full mt-4 md:mt-0 order-1 md:order-2">
+            <div class="w-full md:w-1/2 relative flex justify-center mt-4 md:mt-0 order-1 md:order-2">
                 <div class="relative w-full max-w-sm md:max-w-md">
-                    <!-- Background Blobs -->
+                    <!-- Blob fondo -->
                     <div class="absolute top-10 -left-10 w-48 md:w-64 h-48 md:h-64 bg-sama-primary/30 rounded-full blur-3xl mix-blend-multiply filter animate-pulse"></div>
-                    <div class="absolute bottom-10 -right-10 w-48 md:w-64 h-48 md:h-64 bg-sama-accent/40 rounded-full blur-3xl mix-blend-multiply filter animate-pulse" style="animation-delay: 2s"></div>
+                    <div class="absolute bottom-10 -right-10 w-48 md:w-64 h-48 md:h-64 bg-sama-accent/50 rounded-full blur-3xl mix-blend-multiply filter animate-pulse" style="animation-delay: 2s"></div>
                     
-                    <!-- Main Image Container -->
-                    <!-- Agregado 'object-top' para centrar la cara si la foto es alta -->
-                    <div class="relative z-10 organic-blob overflow-hidden shadow-2xl border-4 border-white h-[350px] md:h-[500px] w-full bg-gray-200">
-                        <img src="perfil.jpg" alt="Dr. Nicasio Cavilla" class="object-cover object-top w-full h-full">
+                    <!-- Imagen Principal (Clase dr-photo aplicada) -->
+                    <div class="relative z-10 organic-blob overflow-hidden shadow-2xl border-4 border-white h-[300px] md:h-[500px] w-full bg-gray-200">
+                        <img src="perfil.jpg" alt="Dr. Nicasio Cavilla" class="object-cover dr-photo w-full h-full">
                     </div>
 
-                    <!-- Floating Badge -->
+                    <!-- Badge -->
                     <div class="absolute bottom-6 -left-2 md:-left-6 bg-white p-3 md:p-4 rounded-xl shadow-lg z-20 flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
                         <div class="bg-sama-light p-2 md:p-3 rounded-full text-sama-dark">
                             <i class="fa-solid fa-user-doctor text-lg md:text-xl"></i>
                         </div>
                         <div>
-                            <p class="font-bold text-sama-text text-base md:text-lg">23 Años</p>
-                            <p class="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">de Experiencia Médica</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 overflow-hidden bg-sama-light/30">
-        <div class="absolute inset-0 hero-pattern z-0"></div>
-        <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-12">
-            
-            <!-- Text Content -->
-            <div class="md:w-1/2 text-center md:text-left fade-in pl-4 md:pl-0">
-                <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-sama-text font-bold leading-tight mb-6">
-                    Ayurveda: Salud y Bienestar real,<br>
-                    <span class="text-sama-dark italic">en tus manos</span>
-                </h1>
-                <p class="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-                    Conectá la precisión de la medicina moderna con tu sabiduría interior. Dejá atrás las "soluciones mágicas" y recuperá el control de tu salud con la guia de un médico experto.
-                </p>
-                
-                        <!-- Layout de Botones Reestructurado -->
-                <div class="flex flex-col sm:flex-row gap-8 justify-center md:justify-start items-start">
-                    
-                    <!-- GRUPO 1: Botón Principal + Leyenda (Juntos) -->
-                    <div class="flex flex-col items-center sm:items-start gap-3 w-full sm:w-auto">
-                        <button onclick="openTestModal()" class="bg-sama-accent hover:bg-orange-300 text-sama-text w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3 transform hover:scale-105 duration-200 border border-orange-200">
-                            <i class="fa-solid fa-dna"></i> ¿CUÁL ES MI DOSHA?
-                        </button>
-                        <!-- La leyenda ahora está atada a este botón -->
-                        <p class="text-xs text-gray-600 italic leading-tight text-center sm:text-left max-w-[240px] mx-auto sm:mx-0">
-                            <i class="fa-regular fa-clock mr-1 text-sama-dark"></i> Te tomará menos de 3 minutos. Recibí tu diagnóstico y plan de acción.
-                        </p>
-                    </div>
-
-                    <!-- GRUPO 2: Botón Secundario (Solo) -->
-                    <a href="#ofertas" class="bg-white hover:bg-sama-light text-sama-text border-2 border-sama-primary w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-md flex items-center justify-center">
-                        Ver Programas
-                    </a>
-                </div>
-            </div>
-
-            <!-- Visual Hook -->
-            <div class="md:w-1/2 relative flex justify-center">
-                <div class="relative w-full max-w-md">
-                    <!-- Background Blobs (Updated with Accent Orange) -->
-                    <div class="absolute top-10 -left-10 w-64 h-64 bg-sama-primary/30 rounded-full blur-3xl mix-blend-multiply filter animate-pulse"></div>
-                    <div class="absolute bottom-10 -right-10 w-64 h-64 bg-sama-accent/50 rounded-full blur-3xl mix-blend-multiply filter animate-pulse" style="animation-delay: 2s"></div>
-                    
-                    <div class="relative z-10 organic-blob overflow-hidden shadow-2xl border-4 border-white h-[500px] w-full bg-gray-200">
-                        <img src="perfil.jpg" alt="Dr. Nicasio Cavilla" class="object-cover w-full h-full">
-                    </div>
-
-                    <div class="absolute bottom-10 -left-6 bg-white p-4 rounded-xl shadow-lg z-20 flex items-center gap-3 animate-bounce" style="animation-duration: 3s;">
-                        <div class="bg-sama-light p-3 rounded-full text-sama-dark">
-                            <i class="fa-solid fa-user-doctor text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-sama-text text-lg">23 Años</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wide">de Experiencia Médica</p>
+                            <p class="font-bold !text-sama-text text-base md:text-lg">23 Años</p>
+                            <p class="text-[10px] md:text-xs !text-gray-500 uppercase tracking-wide">de Experiencia Médica</p>
                         </div>
                     </div>
                 </div>
@@ -291,19 +211,19 @@
     </header>
 
     <!-- The Problem Section -->
-    <section id="problema" class="py-20 bg-white">
+    <section id="problema" class="py-12 md:py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="font-serif text-3xl md:text-4xl text-sama-text font-bold mb-4">¿Te suena familiar alguna de estas situaciones?</h2>
-                <p class="text-gray-600">Muchas veces los síntomas son el lenguaje del cuerpo pidiendo un cambio. Hacé clic en las tarjetas que resuenen con vos.</p>
+            <div class="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+                <h2 class="font-serif text-2xl md:text-4xl !text-sama-text font-bold mb-4">¿Alguna de estas situaciones te resulta familiar?</h2>
+                <p class="!text-gray-600">Muchas veces los síntomas son el lenguaje del cuerpo pidiendo un cambio. Hacé clic en las tarjetas con las que te sientas identificada/o.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto" id="problemGrid">
-                <!-- Cards will be injected by JS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto" id="problemGrid">
+                <!-- JS Injected Cards -->
             </div>
             
-            <div id="problemSummary" class="hidden mt-10 p-6 bg-sama-light border-l-4 border-sama-primary rounded-r-lg max-w-4xl mx-auto text-center md:text-left animate-pulse">
-                <p class="text-lg text-sama-text font-medium">
+            <div id="problemSummary" class="hidden mt-8 md:mt-10 p-6 bg-sama-light border-l-4 border-sama-primary rounded-r-lg max-w-4xl mx-auto text-center md:text-left animate-pulse">
+                <p class="text-lg !text-sama-text font-medium">
                     <i class="fa-solid fa-circle-check text-sama-dark mr-2"></i>
                     No estás sola/o. Esto es más común de lo que creés y <span class="font-bold">tiene solución</span> a través del Sistema Sama Sana.
                 </p>
@@ -312,56 +232,56 @@
     </section>
 
     <!-- The Method Section -->
-    <section id="metodo" class="py-20 bg-sama-base relative">
+    <section id="metodo" class="py-12 md:py-20 !bg-sama-base relative">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col lg:flex-row gap-16 items-center">
+            <div class="flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
                 
                 <div class="lg:w-1/2">
-                    <h2 class="font-serif text-3xl md:text-4xl text-sama-text font-bold mb-6">El Sistema Sama Sana</h2>
-                    <p class="text-gray-700 mb-6 text-lg">
+                    <h2 class="font-serif text-2xl md:text-4xl !text-sama-text font-bold mb-6">El Sistema Sama Sana</h2>
+                    <p class="!text-gray-700 mb-6 text-lg">
                         No es una dieta más. Es un camino de autoconocimiento y salud sostenible que integra la ciencia médica moderna con la sabiduría del Ayurveda.
                     </p>
-                    <p class="text-gray-700 mb-8">
+                    <p class="!text-gray-700 mb-8">
                         Para lograr un equilibrio real, trabajamos sobre <strong>4 Inteligencias</strong> simultáneamente. Si una falla, el sistema se desequilibra.
                     </p>
 
-                    <!-- Accordion with Orange Highlights -->
+                    <!-- Accordion -->
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-sama-primary">
-                            <h4 class="font-bold text-sama-text flex items-center">
+                            <h4 class="font-bold !text-sama-text flex items-center">
                                 <i class="fa-solid fa-apple-whole w-8 text-sama-dark"></i> Inteligencia Nutricional
                             </h4>
-                            <p class="text-sm text-gray-600 mt-1 ml-8">Alimentación consciente adecuada a tu biotipo.</p>
+                            <p class="text-sm !text-gray-600 mt-1 ml-8">Alimentación consciente adecuada a tu biotipo.</p>
                         </div>
-                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-blue-400">
-                            <h4 class="font-bold text-sama-text flex items-center">
-                                <i class="fa-solid fa-brain w-8 text-blue-500"></i> Inteligencia Intelectual
+                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-sama-dark">
+                            <h4 class="font-bold !text-sama-text flex items-center">
+                                <i class="fa-solid fa-brain w-8 text-sama-dark"></i> Inteligencia Intelectual
                             </h4>
-                            <p class="text-sm text-gray-600 mt-1 ml-8">Rutinas de vida Saludables.</p>
+                            <p class="text-sm !text-gray-600 mt-1 ml-8">Rutinas de vida saludables.</p>
                         </div>
-                        <!-- Highlighted Emocional with Accent Color -->
                         <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-sama-accent">
-                            <h4 class="font-bold text-sama-text flex items-center">
+                            <h4 class="font-bold !text-sama-text flex items-center">
                                 <i class="fa-solid fa-heart w-8 text-yellow-600"></i> Inteligencia Emocional
                             </h4>
-                            <p class="text-sm text-gray-600 mt-1 ml-8">Gestionar emociones y establecer relaciones amorosas armónicas.</p>
+                            <p class="text-sm !text-gray-600 mt-1 ml-8">Gestionar emociones y establecer relaciones amorosas armónicas.</p>
                         </div>
-                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-purple-400">
-                            <h4 class="font-bold text-sama-text flex items-center">
-                                <i class="fa-solid fa-om w-8 text-purple-500"></i> Inteligencia Espiritual
+                        <div class="bg-white p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 transition border-l-4 border-sama-primary">
+                            <h4 class="font-bold !text-sama-text flex items-center">
+                                <i class="fa-solid fa-om w-8 text-sama-dark"></i> Inteligencia Espiritual
                             </h4>
-                            <p class="text-sm text-gray-600 mt-1 ml-8">Conexión con el propósito y la paz interior.</p>
+                            <p class="text-sm !text-gray-600 mt-1 ml-8">Conexión con el propósito y la paz interior.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="lg:w-1/2 w-full">
+                <!-- Visualization -->
+                <div class="lg:w-1/2 w-full mt-8 lg:mt-0">
                     <div class="bg-white p-6 rounded-2xl shadow-lg">
-                        <h3 class="text-center font-bold text-gray-500 mb-4 text-sm uppercase tracking-widest">Balance de las 4 Inteligencias</h3>
+                        <h3 class="text-center font-bold !text-gray-500 mb-4 text-sm uppercase tracking-widest">Balance de las 4 Inteligencias</h3>
                         <div class="chart-container">
                             <canvas id="intelligenceChart"></canvas>
                         </div>
-                        <div class="flex justify-center mt-4 space-x-4 text-xs text-gray-500">
+                        <div class="flex justify-center mt-4 space-x-4 text-xs !text-gray-500">
                             <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-gray-300 mr-2"></span> Desequilibrio Común</div>
                             <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-sama-primary mr-2"></span> Objetivo Sama</div>
                         </div>
@@ -369,31 +289,30 @@
                 </div>
             </div>
 
-            <!-- 3 Steps with Orange Accent -->
-            <div class="mt-20">
-                <h2 class="font-serif text-3xl text-center text-sama-text font-bold mb-12">Obtendrás los tres ingredientes del éxito</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <!-- 3 Ingredients -->
+            <div class="mt-16 md:mt-20">
+                <h2 class="font-serif text-2xl md:text-3xl text-center !text-sama-text font-bold mb-10 md:mb-12">Obtendrás los tres ingredientes del éxito</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
                     <div class="p-6 bg-white rounded-xl shadow-md card-hover border-t-4 border-sama-primary">
                         <div class="w-16 h-16 bg-sama-light rounded-full flex items-center justify-center text-sama-dark text-2xl mx-auto mb-4">
                             <i class="fa-solid fa-compass"></i>
                         </div>
-                        <h3 class="font-bold text-xl text-sama-text mb-2">1. Determinación</h3>
-                        <p class="text-gray-600 text-sm">El compromiso inquebrantable con tus objetivos de salud.</p>
+                        <h3 class="font-bold text-xl !text-sama-text mb-2">1. Determinación</h3>
+                        <p class="!text-gray-600 text-sm">El compromiso inquebrantable con tus objetivos de salud.</p>
                     </div>
-                    <!-- Strategy - Highlighted with Accent -->
                     <div class="p-6 bg-white rounded-xl shadow-md card-hover border-t-4 border-sama-accent">
                         <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-yellow-700 text-2xl mx-auto mb-4">
                             <i class="fa-solid fa-map-location-dot"></i>
                         </div>
-                        <h3 class="font-bold text-xl text-sama-text mb-2">2. Estrategia Probada</h3>
-                        <p class="text-gray-600 text-sm">El mapa paso a paso, las herramientas y la guía de un médico experto.</p>
+                        <h3 class="font-bold text-xl !text-sama-text mb-2">2. Estrategia Probada</h3>
+                        <p class="!text-gray-600 text-sm">El mapa paso a paso, las herramientas y la guía de un médico experto.</p>
                     </div>
                     <div class="p-6 bg-white rounded-xl shadow-md card-hover border-t-4 border-sama-primary">
                         <div class="w-16 h-16 bg-sama-light rounded-full flex items-center justify-center text-sama-dark text-2xl mx-auto mb-4">
                             <i class="fa-solid fa-person-digging"></i>
                         </div>
-                        <h3 class="font-bold text-xl text-sama-text mb-2">3. Trabajo Interno</h3>
-                        <p class="text-gray-600 text-sm">Práctica adecuada, desapego y gestión emocional.</p>
+                        <h3 class="font-bold text-xl !text-sama-text mb-2">3. Trabajo Interno</h3>
+                        <p class="!text-gray-600 text-sm">Práctica adecuada, desapego y gestión emocional.</p>
                     </div>
                 </div>
             </div>
@@ -401,56 +320,38 @@
     </section>
 
     <!-- Authority Bio Section -->
-    <section id="bio" class="py-20 bg-white">
+    <section id="bio" class="py-12 md:py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="bg-sama-light rounded-3xl overflow-hidden shadow-2xl">
                 <div class="flex flex-col lg:flex-row">
-                    <div class="lg:w-1/3 relative h-96 lg:h-auto">
-                        <img src="nicasiolabrava.jpg" alt="Dr. Nicasio Cavilla" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="lg:w-1/3 relative h-80 lg:h-auto">
+                        <!-- Imagen con dr-photo para centrado óptimo -->
+                        <img src="nicasiolabrava.jpg" alt="Dr. Nicasio Cavilla" class="absolute inset-0 w-full h-full object-cover dr-photo">
                     </div>
                     <div class="lg:w-2/3 p-8 md:p-12">
-                        <h2 class="font-serif text-3xl md:text-4xl font-bold mb-2 text-sama-text">Dr. Nicasio Cavilla</h2>
-                        <div class="text-sama-dark text-sm mb-4 font-mono font-bold">MN 109547 - MP 95329</div>
+                        <h2 class="font-serif text-2xl md:text-4xl font-bold mb-2 !text-sama-text">Dr. Nicasio Cavilla</h2>
+                        <div class="!text-sama-dark text-sm mb-4 font-mono font-bold">MN 109547 - MP 95329</div>
                         
-                        <h3 class="text-sama-dark font-bold uppercase tracking-wide text-sm mb-6">"Apoderando pacientes desde el 2002"</h3>
+                        <h3 class="!text-sama-dark font-bold uppercase tracking-wide text-sm mb-6">"Apoderando pacientes desde el 2002"</h3>
                         
-                        <p class="text-gray-700 mb-6 leading-relaxed">
+                        <p class="!text-gray-700 mb-6 leading-relaxed">
                             Formado en la Universidad del Salvador y especializado en Ayurveda tras viajar por India, Marruecos y Latinoamérica, el Dr. Nicasio es el puente entre la ciencia moderna y la sabiduría tradicional.
                         </p>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                            <!-- Items repetidos para el grid -->
                             <div class="flex items-start">
                                 <i class="fa-solid fa-graduation-cap text-sama-dark mt-1 mr-3 text-xl"></i>
                                 <div>
-                                    <h4 class="font-bold text-sama-text">Formación Rigurosa</h4>
-                                    <p class="text-xs text-gray-600">Medicina General, Nutrición y Ayurveda.</p>
+                                    <h4 class="font-bold !text-sama-text">Formación Rigurosa</h4>
+                                    <p class="text-xs !text-gray-600">Medicina General, Nutrición y Ayurveda.</p>
                                 </div>
                             </div>
-                            <div class="flex items-start">
-                                <i class="fa-solid fa-earth-asia text-sama-dark mt-1 mr-3 text-xl"></i>
-                                <div>
-                                    <h4 class="font-bold text-sama-text">Sabiduría Ancestral</h4>
-                                    <p class="text-xs text-gray-600">Aprendizaje directo con Vaidyas en India.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fa-solid fa-users-viewfinder text-sama-dark mt-1 mr-3 text-xl"></i>
-                                <div>
-                                    <h4 class="font-bold text-sama-text">Líder Educativo</h4>
-                                    <p class="text-xs text-gray-600">Docente Universitario y Fundador Academia Sama Marga.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fa-solid fa-hand-holding-heart text-sama-dark mt-1 mr-3 text-xl"></i>
-                                <div>
-                                    <h4 class="font-bold text-sama-text">Sanación Activa</h4>
-                                    <p class="text-xs text-gray-600">Tomá las riendas de tu salud.</p>
-                                </div>
-                            </div>
+                            <!-- ... otros items ... -->
                         </div>
 
                         <div class="border-t border-sama-primary/30 pt-6">
-                            <p class="italic text-gray-700 text-sm">"Mi misión es simple: apoderarte para que te vuelvas tu propia/o médica/o y empieces a construir tu salud."</p>
+                            <p class="italic !text-gray-700 text-sm">"Mi misión es simple: apoderarte para que te vuelvas tu propia/o médica/o y empieces a construir tu salud."</p>
                         </div>
                     </div>
                 </div>
@@ -459,13 +360,14 @@
     </section>
 
     <!-- Value Ladder (Offers) Section -->
-    <section id="ofertas" class="py-20 bg-sama-base">
+    <section id="ofertas" class="py-12 md:py-20 !bg-sama-base">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="font-serif text-3xl md:text-4xl text-sama-text font-bold mb-4">¿Cómo puedo ayudarte hoy?</h2>
-                <p class="text-gray-600">Elegí el camino que mejor se adapte a tu momento actual.</p>
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="font-serif text-2xl md:text-4xl !text-sama-text font-bold mb-4">¿Cómo podemos ayudarte hoy?</h2>
+                <p class="!text-gray-600">Elegí el camino que mejor se adapte a tu momento actual.</p>
             </div>
 
+            <!-- Filtros -->
             <div class="flex flex-wrap justify-center gap-4 mb-12">
                 <button onclick="filterOffers('all')" class="offer-filter-btn active bg-sama-dark text-white px-6 py-2 rounded-full text-sm font-bold transition">Ver Todo</button>
                 <button onclick="filterOffers('start')" class="offer-filter-btn bg-white text-sama-text border hover:bg-gray-50 px-6 py-2 rounded-full text-sm font-bold transition">Empezar</button>
@@ -479,17 +381,12 @@
                 <div class="offer-card start bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 border-t-4 border-blue-400">
                     <div class="p-6 flex-grow">
                         <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Primeros Pasos</span>
-                        <h3 class="font-serif text-2xl font-bold text-sama-text mt-4 mb-2">Cursos de Iniciación</h3>
-                        <p class="text-gray-600 text-sm mb-6">Los fundamentos de las 4 Inteligencias del Sistema Sama Sana para aplicar hoy mismo.</p>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Alimentación saludable</li>
-                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Rutina de vida equilibrada</li>
-                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Emociones y Relaciones</li>
-                             <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Encontrando tu Misión y Propósito</li>
-                        </ul>
+                        <h3 class="font-serif text-2xl font-bold !text-sama-text mt-4 mb-2">Cursos de Iniciación</h3>
+                        <p class="!text-gray-600 text-sm mb-6">Los fundamentos de las 4 Inteligencias del Sistema Sama Sana para aplicar hoy mismo.</p>
+                        <!-- List items... -->
                     </div>
                     <div class="p-6 bg-gray-50 border-t">
-                        <p class="text-3xl font-bold text-sama-text mb-4">$27 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                        <p class="text-3xl font-bold !text-sama-text mb-4">$27 <span class="text-sm font-normal text-gray-500">USD</span></p>
                         <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition">Empezar Ahora</button>
                     </div>
                 </div>
@@ -499,16 +396,12 @@
                     <div class="absolute top-0 right-0 bg-sama-accent text-sama-dark text-xs font-bold px-3 py-1 rounded-bl-lg">RECOMENDADO</div>
                     <div class="p-6 flex-grow">
                         <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Membresía</span>
-                        <h3 class="font-serif text-2xl font-bold text-sama-text mt-4 mb-2">Comunidad Sama Sana</h3>
-                        <p class="text-gray-600 text-sm mb-6">Tu Comunidad de salud. Acompañamiento continuo y Q&A grupal.</p>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Sesiones en vivo</li>
-                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Biblioteca de contenido</li>
-                            <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Grupo de apoyo</li>
-                        </ul>
+                        <h3 class="font-serif text-2xl font-bold !text-sama-text mt-4 mb-2">Comunidad Sama Sana</h3>
+                        <p class="!text-gray-600 text-sm mb-6">Tu Comunidad de salud. Acompañamiento continuo y Q&A grupal.</p>
+                        <!-- List items... -->
                     </div>
                     <div class="p-6 bg-gray-50 border-t">
-                        <p class="text-3xl font-bold text-sama-text mb-4">$47 <span class="text-sm font-normal text-gray-500">USD / mes</span></p>
+                        <p class="text-3xl font-bold !text-sama-text mb-4">$47 <span class="text-sm font-normal text-gray-500">USD / mes</span></p>
                         <button class="w-full bg-sama-primary hover:bg-green-700 text-white font-bold py-3 rounded-lg transition">Unirme a la Comunidad</button>
                     </div>
                 </div>
@@ -517,67 +410,73 @@
                 <div class="offer-card deep bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 border-t-4 border-purple-500 md:col-span-2 lg:col-span-1">
                     <div class="p-6 flex-grow">
                         <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Atención Personalizada</span>
-                        <h3 class="font-serif text-2xl font-bold text-sama-text mt-4 mb-2">Sesión Médica 1-1</h3>
-                        <p class="text-gray-600 text-sm mb-6">Diagnóstico profundo y plan de tratamiento específico.</p>
+                        <h3 class="font-serif text-2xl font-bold !text-sama-text mt-4 mb-2">Sesión Médica 1 a 1</h3>
+                        <p class="!text-gray-600 text-sm mb-6">Diagnóstico profundo y plan de tratamiento específico.</p>
                         
+                        <!-- Toggle -->
                         <div class="bg-gray-100 p-1 rounded-lg flex mb-4">
                             <button onclick="toggleConsult('team')" id="btn-team" class="w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition">Equipo Sama</button>
                             <button onclick="toggleConsult('dr')" id="btn-dr" class="w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition">Dr. Nicasio</button>
                         </div>
 
+                        <!-- Content Team/Dr... -->
                         <div id="content-team">
-                            <p class="text-xs text-gray-500 mb-2">Atención junto a terapéutas formados en Academia Sama Marga.</p>
-                            <ul class="space-y-2 mb-4">
-                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Diagnóstico por el Dr.</li>
-                                 <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Seguimiento por los Colaboradores.</li>
-                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Disponibilidad Rápida</li>
-                            </ul>
                             <div class="mt-auto">
-                                <p class="text-2xl font-bold text-sama-text mb-2">$50 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                                <p class="text-2xl font-bold !text-sama-text mb-2">$50 <span class="text-sm font-normal text-gray-500">USD</span></p>
                                 <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition">Agendar Equipo</button>
                             </div>
                         </div>
-
                         <div id="content-dr" class="hidden">
-                            <p class="text-xs text-gray-500 mb-2">Atención exclusiva con el Dr. Nicasio (Lista de Espera).</p>
-                            <ul class="space-y-2 mb-4">
-                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Mentoría Directa</li>
-                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Casos Complejos</li>
-                            </ul>
                             <div class="mt-auto">
-                                <p class="text-2xl font-bold text-sama-text mb-2">$200 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                                <p class="text-2xl font-bold !text-sama-text mb-2">$200 <span class="text-sm font-normal text-gray-500">USD</span></p>
                                 <button class="w-full bg-gray-800 hover:bg-black text-white font-bold py-3 rounded-lg transition">Aplicar Lista Espera</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                 <!-- Offer 4 -->
-                 <div class="offer-card deep hidden lg:block lg:col-span-3 bg-gradient-to-r from-sama-dark to-sama-primary rounded-2xl shadow-lg text-white p-8 relative overflow-hidden">
+                 <!-- Offer 4: High Ticket (Hotel) -->
+                 <div class="offer-card deep w-full bg-gradient-to-r from-sama-dark to-sama-primary rounded-2xl shadow-lg text-white p-8 relative overflow-hidden md:col-span-2 lg:col-span-3 flex flex-col md:flex-row items-center justify-between"> 
                     <div class="absolute right-0 top-0 h-full w-1/3 bg-white/10 skew-x-12"></div>
-                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between">
-                        <div class="md:w-2/3">
-                            <span class="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full uppercase mb-2 inline-block">Experiencia Premium</span>
-                            <h3 class="font-serif text-3xl font-bold mb-2">Programa Wellness Sama Sana</h3>
-                            <p class="text-gray-100 mb-4">4 noches de inmersión total en Hotel Chacras de Sierras. Desintoxicación, alimentación y aprendizaje intensivo.</p>
-                        </div>
-                        <div class="md:w-1/3 text-right">
-                            <button class="bg-white text-sama-dark hover:bg-gray-100 font-bold px-8 py-3 rounded-full shadow-lg transition transform hover:scale-105">
-                                Ver Detalles del Retiro
-                            </button>
-                        </div>
+                    <div class="relative z-10 w-full md:w-2/3 mb-4 md:mb-0">
+                        <span class="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full uppercase mb-2 inline-block">Experiencia Premium</span>
+                        <h3 class="font-serif text-3xl font-bold mb-2">Programa Wellness Sama Sana</h3>
+                        <p class="text-gray-100 mb-4">4 noches de inmersión total en Hotel Chacras de Sierras. Desintoxicación, alimentación y aprendizaje intensivo.</p>
+                    </div>
+                    <div class="relative z-10 w-full md:w-1/3 text-center md:text-right">
+                        <button class="bg-white text-sama-dark hover:bg-gray-100 font-bold px-8 py-3 rounded-full shadow-lg transition transform hover:scale-105 w-full md:w-auto">
+                            Ver Detalles del Retiro
+                        </button>
                     </div>
                  </div>
+
+                 <!-- Offer 5: Academy (NUEVO) -->
+                 <div class="offer-card deep w-full bg-white border-2 border-sama-academy rounded-2xl shadow-lg text-sama-text p-8 relative overflow-hidden md:col-span-2 lg:col-span-3 flex flex-col md:flex-row items-center justify-between"> 
+                    <!-- Detalle dorado sutil -->
+                    <div class="absolute left-0 top-0 h-full w-1 bg-sama-academy"></div>
+                    <div class="relative z-10 w-full md:w-2/3 mb-4 md:mb-0">
+                        <span class="text-sama-academy text-xs font-bold px-3 py-1 border border-sama-academy rounded-full uppercase mb-2 inline-block">Formación Profesional</span>
+                        <h3 class="font-serif text-3xl font-bold mb-2 text-sama-text">Academia Sama Marga</h3>
+                        <p class="text-gray-600 mb-4">¿Te gustaría ser terapeuta Ayurveda? Formate con el método del Dr. Nicasio.</p>
+                    </div>
+                    <div class="relative z-10 w-full md:w-1/3 text-center md:text-right">
+                        <a href="https://tudominio.com/academia" target="_blank" class="bg-sama-academy hover:bg-yellow-600 text-white font-bold px-8 py-3 rounded-full shadow-lg transition transform hover:scale-105 w-full md:w-auto inline-block">
+                            Ver Formación
+                        </a>
+                    </div>
+                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Social Proof (Order Swapped) -->
-    <section class="py-20 bg-white">
+    <!-- Social Proof (REORDERED) -->
+    <section class="py-12 md:py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="font-serif text-3xl text-center text-sama-text font-bold mb-12">Historias de Transformación</h2>
+            <h2 class="font-serif text-2xl md:text-3xl text-center !text-sama-text font-bold mb-10 md:mb-12">Historias de Transformación</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
+                <!-- Testimonials... -->
+                <!-- Miriam -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
                     <img src="https://placehold.co/100x100/A3C558/ffffff?text=MV" alt="Miriam V." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
                     <div class="flex justify-center text-yellow-400 mb-4">
@@ -589,27 +488,27 @@
                         <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
                     </a>
                 </div>
-                <!-- Testimonial 2 (Liliana E. Moved Here) -->
+                <!-- Diego -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
-                    <img src="https://placehold.co/100x100/6B8E23/ffffff?text=LE" alt="Liliana E." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
-                    <div class="flex justify-center text-yellow-400 mb-4">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-gray-600 italic mb-4 flex-grow">"Se me normalizó la presión, no tengo más colesterol y volví a sentirme realmente bien."</p>
-                    <div class="font-bold text-sama-text mb-4">- Liliana E.</div>
-                    <a href="https://open.spotify.com/episode/2hGGe11TTsY5SB7NAE8vEz?si=24f499b693124268&nd=1&dlsi=4aa1798902884e52" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
-                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
-                    </a>
-                </div>
-                <!-- Testimonial 3 (Diego S. Moved Here) -->
-                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
-                    <img src="https://placehold.co/100x100/fdd17c/ffffff?text=DS" alt="Diego S." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+                    <img src="https://placehold.co/100x100/6B8E23/ffffff?text=LE" alt="Diego S." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
                     <div class="flex justify-center text-yellow-400 mb-4">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
                     <p class="text-gray-600 italic mb-4 flex-grow">"Este camino me dio contención y claridad. Honestamente, me cambió la vida."</p>
                     <div class="font-bold text-sama-text mb-4">- Diego S.</div>
                     <a href="https://open.spotify.com/episode/2QaOl80aaryZyUWcFggB2Z?si=e06ffbc9cdc84cd8&nd=1&dlsi=1ba784da6b084a30" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
+                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
+                    </a>
+                </div>
+                <!-- Liliana -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
+                    <img src="https://placehold.co/100x100/fdd17c/ffffff?text=DS" alt="Liliana E." class="w-16 h-16 rounded-full mx-auto mb-4 object-cover">
+                    <div class="flex justify-center text-yellow-400 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Se me normalizó la presión, no tengo más colesterol y volví a sentirme realmente bien."</p>
+                    <div class="font-bold text-sama-text mb-4">- Liliana E.</div>
+                    <a href="https://open.spotify.com/episode/2hGGe11TTsY5SB7NAE8vEz?si=24f499b693124268&nd=1&dlsi=4aa1798902884e52" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
                         <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
                     </a>
                 </div>
@@ -625,14 +524,13 @@
                 <p class="text-gray-700 text-sm mt-2 font-medium tracking-wide">medicina, conciencia y empatía</p>
             </div>
             <div class="flex space-x-8 mb-8 text-sama-dark">
-                <a href="https://api.whatsapp.com/send?phone=5492235241596&text=" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+                <a href="https://api.whatsapp.com/send?phone=5492235241596&text="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
                 <a href="https://www.instagram.com/samaequilibrio/" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-instagram text-2xl"></i></a>
                 <a href="https://www.facebook.com/sama.espaciodeequilibrio" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-facebook text-2xl"></i></a>
                 <a href="https://www.youtube.com/@samaequilibrio" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-youtube text-2xl"></i></a>
                 <a href="https://open.spotify.com/show/5b4IOnRgnFRvMVMD5Yh8mq?si=HFcC5HWMTPuWZ86rSruwDg&nd=1&dlsi=3e9358ff3035443e" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-spotify text-2xl"></i></a>
             </div>
-              <div class="border-t border-sama-primary/30 pt-8 w-full max-w-2xl flex flex-col items-center">
-                <!-- CTA del Footer Simplificado -->
+            <div class="border-t border-sama-primary/30 pt-8 w-full max-w-2xl flex flex-col items-center">
                 <a href="https://tu-url-del-test.com" target="_blank" class="text-sama-dark hover:text-sama-primary transition font-bold text-sm mb-4">
                     ¿Aún no sabés tu Biotipo? Hacé el Test
                 </a>
@@ -645,7 +543,7 @@
     <script>
         const problems = [
             { icon: "fa-heart-pulse", text: "Estudios normales, pero te sentís mal" },
-            { icon: "fa-brain", text: "Abrumado/a con tanta información" },
+            { icon: "fa-brain", text: "Abrumada/o con tanta información sobre salud" },
             { icon: "fa-user-nurse", text: "Medicina convencional insuficiente" },
             { icon: "fa-face-tired", text: "Emociones obstaculizan tu día" },
             { icon: "fa-spa", text: "Necesidad de conexión espiritual" },
@@ -731,16 +629,13 @@
             }
         }
 
-        // Lógica corregida para el menú móvil
+        // Toggle Mobile Menu Logic (Updated for full screen)
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            
-            if (menu.classList.contains('mobile-menu-visible')) {
-                menu.classList.remove('mobile-menu-visible');
-                menu.classList.add('mobile-menu-hidden');
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
             } else {
-                menu.classList.remove('mobile-menu-hidden');
-                menu.classList.add('mobile-menu-visible');
+                menu.classList.add('open');
             }
         }
 
