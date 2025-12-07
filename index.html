@@ -692,29 +692,56 @@
         function toggleConsult(type) {
             const btnTeam = document.getElementById('btn-team');
             const btnDr = document.getElementById('btn-dr');
-            const contentTeam = document.getElementById('content-team');
-            const contentDr = document.getElementById('content-dr');
+            
+            const infoTeam = document.getElementById('info-team');
+            const infoDr = document.getElementById('info-dr');
+            
+            const actionTeam = document.getElementById('action-team');
+            const actionDr = document.getElementById('action-dr');
 
             if (type === 'team') {
+                // Button Styles
                 btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition";
                 btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
-                contentTeam.classList.remove('hidden');
-                contentDr.classList.add('hidden');
+                
+                // Toggle Content
+                infoTeam.classList.remove('hidden');
+                infoDr.classList.add('hidden');
+                
+                // Toggle Footer Action
+                actionTeam.classList.remove('hidden');
+                actionDr.classList.add('hidden');
             } else {
+                // Button Styles
                 btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition";
                 btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
-                contentDr.classList.remove('hidden');
-                contentTeam.classList.add('hidden');
+                
+                // Toggle Content
+                infoDr.classList.remove('hidden');
+                infoTeam.classList.add('hidden');
+                
+                // Toggle Footer Action
+                actionDr.classList.remove('hidden');
+                actionTeam.classList.add('hidden');
             }
         }
 
-        // Toggle Mobile Menu Logic (Updated for full screen)
+        // Toggle Mobile Menu Logic
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            if (menu.classList.contains('open')) {
-                menu.classList.remove('open');
+            
+            if (menu.classList.contains('closed')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => { // delay para animar la altura
+                    menu.classList.remove('closed');
+                    menu.classList.add('open');
+                }, 10);
             } else {
-                menu.classList.add('open');
+                menu.classList.remove('open');
+                menu.classList.add('closed');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300); 
             }
         }
 
