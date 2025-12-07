@@ -81,15 +81,23 @@
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         }
 
-        /* Menú Móvil Full Screen */
+               /* Estilos para el menú móvil (INLINE / Acordeón) */
+        /* Eliminamos 'hidden' de CSS puro para manejarlo con clases de Tailwind y JS */
         #mobile-menu {
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(100%); /* Oculto a la derecha */
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            overflow: hidden;
         }
+        /* Clase para cuando está abierto */
         #mobile-menu.open {
-            transform: translateX(0); /* Visible */
+            max-height: 500px; /* Altura suficiente para mostrar items */
+            opacity: 1;
         }
-
+        /* Clase para cuando está cerrado */
+        #mobile-menu.closed {
+            max-height: 0;
+            opacity: 0;
+        }
+        
         /* Ajuste fino para la foto del Dr. */
         /* object-position: x y; -> 30% (centro horizontal) 5% (parte superior vertical) */
         .dr-photo {
@@ -124,20 +132,18 @@
                 ¿Cuál es mi dosha?
             </a>
 
-                    <!-- Botón Hamburguesa -->
+                <!-- Botón Hamburguesa -->
                 <div class="md:hidden flex items-center">
-                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light">
+                    <!-- Añadido id="menu-btn" y z-index alto -->
+                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light z-50 relative">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Menú Móvil (INLINE REAL - Dentro del contenedor del nav pero oculto por defecto) -->
-            <!-- Importante: No tiene 'absolute' ni 'fixed', por lo que empujará el contenido si el nav crece, 
-                 o se comportará como un bloque debajo del header si el nav tiene altura fija (ojo aqui).
-                 Para un fixed navbar, el menú móvil debe estar DENTRO del fixed nav y tener un max-height con scroll si es necesario, 
-                 o ser absolute. Para que NO tape la foto, lo ideal es que sea absolute pero con fondo sólido y que aparezca debajo de la barra. -->
-            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white w-full">
+            <!-- Menú Móvil Desplegable (INLINE REAL) -->
+            <!-- Inicialmente oculto con 'hidden' de Tailwind y nuestras clases 'closed' -->
+            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white w-full closed relative z-40">
                 <div class="flex flex-col px-4 py-4 space-y-3 text-center">
                     <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2 border-b border-gray-50">Soluciones</a>
                     <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2 border-b border-gray-50">El Método</a>
@@ -153,7 +159,6 @@
     </nav>
 
     <!-- Hero Section -->
-    <!-- pt-28 para compensar la barra fija -->
     <header class="relative pt-28 md:pt-36 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
         <div class="absolute inset-0 hero-pattern z-0"></div>
         
@@ -163,7 +168,7 @@
             <div class="w-full md:w-1/2 text-center md:text-left relative z-10 order-2 md:order-1">
                 <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl !text-sama-text font-bold leading-tight mb-4 md:mb-6">
                     Ayurveda: Salud y Bienestar real,<br>
-                    <span class="!text-sama-dark italic">(en tus manos)</span>
+                    <span class="!text-sama-dark italic">en tus manos</span>
                 </h1>
                 
                 <p class="text-base md:text-xl !text-gray-700 mb-6 md:mb-8 leading-relaxed block">
