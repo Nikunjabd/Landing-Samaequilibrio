@@ -166,16 +166,18 @@
                     Conectá la precisión de la medicina moderna con tu sabiduría interior. Dejá atrás las "soluciones mágicas" y recuperá el control de tu salud con la guía de un médico experto.
                 </p>
                 
-                <!-- Botones -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start items-center sm:items-start w-full">
-                    <div class="flex flex-col items-center sm:items-start gap-2 w-full sm:w-auto">
-                        <a href="https://tu-url-del-test.com" target="_blank" class="bg-sama-accent hover:bg-orange-200 !text-sama-text w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3 transform hover:scale-105 duration-200 border border-orange-200/50 cursor-pointer text-center">
-                            <i class="fa-solid fa-dna"></i> ¿CUÁL ES MI DOSHA?
-                        </a>
-                        <p class="text-xs !text-gray-600 italic leading-tight text-center sm:text-left max-w-[240px]">
-                            <i class="fa-regular fa-clock mr-1 text-sama-dark"></i> Te tomará menos de 3 minutos. Recibí tu diagnóstico y plan de acción.
-                        </p>
-                    </div>
+                <!-- Newsletter Capture Box (Test Dosha) -->
+                <div id="newsletter-hero" class="bg-white p-6 rounded-2xl shadow-lg border border-sama-light max-w-md mx-auto md:mx-0 mb-6">
+                    <h3 class="font-bold text-sama-dark mb-2 text-lg">¿Querés descubrir tu Biotipo (Dosha)?</h3>
+                    <p class="text-sm text-gray-600 mb-4">Ingresá tu email para recibir el Test gratuito y sumarte a mi Newsletter exclusivo con consejos de salud.</p>
+                    <form class="flex flex-col gap-3" onsubmit="event.preventDefault(); alert('¡Gracias! En breve recibirás el test en tu correo.');">
+                        <input type="email" placeholder="Tu mejor correo electrónico" class="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-sama-primary w-full" required>
+                        <button type="submit" class="bg-sama-accent hover:bg-orange-200 text-sama-text px-6 py-3 rounded-lg font-bold transition shadow-md border border-orange-200/50 w-full">
+                            QUIERO MI TEST Y CONSEJOS
+                        </button>
+                    </form>
+                    <p class="text-xs text-gray-400 mt-2 text-center">Te tomará menos de 3 minutos. Libre de spam.</p>
+                </div>
 
                     <a href="#ofertas" class="bg-white hover:bg-sama-light !text-sama-text border-2 border-sama-primary w-full sm:w-auto text-lg px-8 py-4 rounded-full font-bold transition shadow-md flex items-center justify-center text-center">
                         Ver Programas
