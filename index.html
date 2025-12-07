@@ -124,45 +124,49 @@
                 ¿Cuál es mi dosha?
             </a>
 
-          <!-- Botón Hamburguesa (Móvil) -->
-            <div class="md:hidden flex items-center">
-                <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light">
-                    <i class="fa-solid fa-bars text-2xl"></i>
-                </button>
+         <!-- Botón Hamburguesa -->
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <!-- Menú Móvil Desplegable (INLINE - Empuja contenido) -->
-        <div id="mobile-menu" class="md:hidden bg-white border-t border-sama-primary/20 w-full shadow-lg">
-            <div class="flex flex-col px-6 py-6 space-y-4 text-center">
-                <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">Soluciones</a>
-                <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">El Método</a>
-                <a href="#bio" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-b border-sama-light text-lg">Dr. Nicasio</a>
-                <a href="#ofertas" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 text-lg">Programas</a>
-                
-                <!-- CTA Móvil -->
-                <a href="https://tu-url-del-test.com" target="_blank" onclick="toggleMobileMenu()" class="block bg-sama-accent text-sama-text px-6 py-4 rounded-full font-bold w-full shadow-md border border-orange-200/50 mt-4 text-lg">
-                    ¿Cuál es mi dosha?
-                </a>
+            <!-- Menú Móvil (INLINE REAL - Dentro del contenedor del nav pero oculto por defecto) -->
+            <!-- Importante: No tiene 'absolute' ni 'fixed', por lo que empujará el contenido si el nav crece, 
+                 o se comportará como un bloque debajo del header si el nav tiene altura fija (ojo aqui).
+                 Para un fixed navbar, el menú móvil debe estar DENTRO del fixed nav y tener un max-height con scroll si es necesario, 
+                 o ser absolute. Para que NO tape la foto, lo ideal es que sea absolute pero con fondo sólido y que aparezca debajo de la barra. -->
+            <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white w-full">
+                <div class="flex flex-col px-4 py-4 space-y-3 text-center">
+                    <a href="#problema" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2 border-b border-gray-50">Soluciones</a>
+                    <a href="#metodo" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2 border-b border-gray-50">El Método</a>
+                    <a href="#bio" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2 border-b border-gray-50">Dr. Nicasio</a>
+                    <a href="#ofertas" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-2">Programas</a>
+                    
+                    <a href="https://tu-url-del-test.com" target="_blank" onclick="toggleMobileMenu()" class="block bg-sama-accent text-sama-text px-6 py-3 rounded-full font-bold w-full shadow-sm border border-orange-200/50 mt-2">
+                        ¿Cuál es mi dosha?
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-sama-base">
+    <!-- pt-28 para compensar la barra fija -->
+    <header class="relative pt-28 md:pt-36 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
         <div class="absolute inset-0 hero-pattern z-0"></div>
         
         <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
             
             <!-- Text Content -->
-            <!-- Aseguramos z-index para que el texto esté sobre el patrón -->
-            <div class="md:w-1/2 text-center md:text-left fade-in w-full order-2 md:order-1 relative z-10">
-                <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl text-sama-text font-bold leading-tight mb-4 md:mb-6">
+            <div class="w-full md:w-1/2 text-center md:text-left relative z-10 order-2 md:order-1">
+                <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl !text-sama-text font-bold leading-tight mb-4 md:mb-6">
                     Ayurveda: Salud y Bienestar real,<br>
-                    <span class="text-sama-dark italic">en tus manos</span>
+                    <span class="!text-sama-dark italic">en tus manos</span>
                 </h1>
                 
-                <p class="text-base md:text-xl text-gray-700 mb-6 md:mb-8 leading-relaxed px-2 md:px-0 block opacity-100 visible">
+                <p class="text-base md:text-xl !text-gray-700 mb-6 md:mb-8 leading-relaxed block">
                     Conectá la precisión de la medicina moderna con tu sabiduría interior. Dejá atrás las "soluciones mágicas" y recuperá el control de tu salud con la guía de un médico experto.
                 </p>
                 
