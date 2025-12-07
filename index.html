@@ -347,7 +347,27 @@
                                     <p class="text-xs !text-gray-600">Medicina General, Nutrición y Ayurveda.</p>
                                 </div>
                             </div>
-                            <!-- ... otros items ... -->
+                           <div class="flex items-start">
+                                <i class="fa-solid fa-earth-asia text-sama-dark mt-1 mr-3 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-sama-text">Sabiduría Ancestral</h4>
+                                    <p class="text-xs text-gray-600">Aprendizaje directo con Vaidyas en India.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-users-viewfinder text-sama-dark mt-1 mr-3 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-sama-text">Líder Educativo</h4>
+                                    <p class="text-xs text-gray-600">Docente Universitario y Fundador Academia Sama Marga.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fa-solid fa-hand-holding-heart text-sama-dark mt-1 mr-3 text-xl"></i>
+                                <div>
+                                    <h4 class="font-bold text-sama-text">Sanación Activa</h4>
+                                    <p class="text-xs text-gray-600">Tomá las riendas de tu salud.</p>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="border-t border-sama-primary/30 pt-6">
@@ -406,34 +426,45 @@
                     </div>
                 </div>
 
-                <!-- Offer 3 -->
+<!-- Offer 3 -->
                 <div class="offer-card deep bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 border-t-4 border-purple-500 md:col-span-2 lg:col-span-1">
                     <div class="p-6 flex-grow">
                         <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Atención Personalizada</span>
-                        <h3 class="font-serif text-2xl font-bold !text-sama-text mt-4 mb-2">Sesión Médica 1 a 1</h3>
-                        <p class="!text-gray-600 text-sm mb-6">Diagnóstico profundo y plan de tratamiento específico.</p>
+                        <h3 class="font-serif text-2xl font-bold text-sama-text mt-4 mb-2">Sesión Médica 1-1</h3>
+                        <p class="text-gray-600 text-sm mb-6">Diagnóstico profundo y plan de tratamiento específico.</p>
                         
-                        <!-- Toggle -->
                         <div class="bg-gray-100 p-1 rounded-lg flex mb-4">
                             <button onclick="toggleConsult('team')" id="btn-team" class="w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition">Equipo Sama</button>
                             <button onclick="toggleConsult('dr')" id="btn-dr" class="w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition">Dr. Nicasio</button>
                         </div>
 
-                        <!-- Content Team/Dr... -->
                         <div id="content-team">
+                            <p class="text-xs text-gray-500 mb-2">Atención junto a terapéutas formados en Academia Sama Marga.</p>
+                            <ul class="space-y-2 mb-4">
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Diagnóstico por el Dr.</li>
+                                 <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Seguimiento por los Colaboradores.</li>
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Disponibilidad Rápida</li>
+                            </ul>
                             <div class="mt-auto">
-                                <p class="text-2xl font-bold !text-sama-text mb-2">$50 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                                <p class="text-2xl font-bold text-sama-text mb-2">$50 <span class="text-sm font-normal text-gray-500">USD</span></p>
                                 <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition">Agendar Equipo</button>
                             </div>
                         </div>
+
                         <div id="content-dr" class="hidden">
+                            <p class="text-xs text-gray-500 mb-2">Atención exclusiva con el Dr. Nicasio (Lista de Espera).</p>
+                            <ul class="space-y-2 mb-4">
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Mentoría Directa</li>
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Casos Complejos</li>
+                            </ul>
                             <div class="mt-auto">
-                                <p class="text-2xl font-bold !text-sama-text mb-2">$200 <span class="text-sm font-normal text-gray-500">USD</span></p>
+                                <p class="text-2xl font-bold text-sama-text mb-2">$200 <span class="text-sm font-normal text-gray-500">USD</span></p>
                                 <button class="w-full bg-gray-800 hover:bg-black text-white font-bold py-3 rounded-lg transition">Aplicar Lista Espera</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                  <!-- Offer 4: High Ticket (Hotel) -->
                  <div class="offer-card deep w-full bg-gradient-to-r from-sama-dark to-sama-primary rounded-2xl shadow-lg text-white p-8 relative overflow-hidden md:col-span-2 lg:col-span-3 flex flex-col md:flex-row items-center justify-between"> 
