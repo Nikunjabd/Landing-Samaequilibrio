@@ -151,7 +151,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (ACTUALIZADO: Forzado a 2 renglones) -->
     <header class="relative pt-28 md:pt-36 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
         <div class="absolute inset-0 hero-pattern z-0"></div>
         
@@ -161,15 +161,17 @@
             <!-- Ancho ajustado a w-full lg:w-[60%] para dar más espacio horizontal al texto y evitar saltos -->
             <div class="w-full md:w-1/2 lg:w-[60%] text-center md:text-left relative z-10 order-2 md:order-1">
                 
-                <!-- KICKER -->
+                <!-- KICKER (Supra-título) -->
                 <p class="text-sm font-bold text-sama-dark tracking-[0.2em] uppercase mb-4 pl-1">
                     Medicina Integrativa y Ayurveda
                 </p>
 
-                <!-- TITULAR CORREGIDO -->
-                <!-- Eliminado 'block' del span para que sea inline. Ajustado tamaño para que quepa en una línea en desktop -->
-                <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl !text-sama-text font-bold leading-tight mb-6">
-                    "Tratamos a la persona, <span class="italic text-sama-dark">no a la enfermedad."</span>
+                <!-- NUEVO TITULAR (AJUSTADO PARA 2 RENGLONES) -->
+                <!-- Eliminamos 'block' y usamos <br> con clase 'hidden md:inline' para forzar salto solo en desktop si es necesario, 
+                     o confiamos en el ancho. Aquí reduzco ligeramente el tamaño máximo a 5xl para asegurar fit. -->
+                <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl !text-sama-text font-bold leading-tight mb-6 whitespace-nowrap md:whitespace-normal">
+                    "Tratamos a la persona, <br class="hidden md:block"> <!-- Salto forzado en desktop -->
+                    <span class="italic text-sama-dark">no a la enfermedad."</span>
                 </h1>
                 
                 <div class="inline-block bg-white/60 backdrop-blur-sm p-4 rounded-xl shadow-sm mb-6 md:mb-8 border border-white/50">
