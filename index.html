@@ -151,7 +151,28 @@
         </div>
     </nav>
 
-    <!-- Hero Section (ACTUALIZADO: Forzado a 2 renglones) -->
+    <!-- Hero Section (ACTUALIZADO: Fix Móvil) -->
+    <header class="relative pt-28 md:pt-36 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
+        <div class="absolute inset-0 hero-pattern z-0"></div>
+        
+        <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            
+            <!-- Text Content -->
+            <!-- Ancho ajustado a w-full lg:w-[60%] para dar más espacio horizontal al texto y evitar saltos -->
+            <div class="w-full md:w-1/2 lg:w-[60%] text-center md:text-left relative z-10 order-2 md:order-1">
+                
+                <!-- KICKER (Supra-título) -->
+                <p class="text-sm font-bold text-sama-dark tracking-[0.2em] uppercase mb-4 pl-1">
+                    Medicina Integrativa y Ayurveda
+                </p>
+
+                <!-- NUEVO TITULAR (AJUSTADO: Sin whitespace-nowrap) -->
+                <!-- Eliminamos 'whitespace-nowrap' para permitir que el texto fluya en móviles. 
+                     Mantenemos el <br> oculto en móvil y visible en desktop para el efecto de 2 líneas. -->
+                <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl !text-sama-text font-bold leading-tight mb-6">
+                    "Tratamos a la persona, <br class="hidden md:block"> <!-- Salto forzado solo en desktop -->
+                    <span class="italic text-sama-dark">no a la enfermedad."</span>
+                </h1>    <!-- Hero Section (ACTUALIZADO: Forzado a 2 renglones) -->
     <header class="relative pt-28 md:pt-36 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
         <div class="absolute inset-0 hero-pattern z-0"></div>
         
