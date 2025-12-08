@@ -464,7 +464,7 @@
                     <div class="p-6 bg-gray-50 border-t">
                         <p class="text-3xl font-bold !text-sama-text mb-4">$27 <span class="text-sm font-normal text-gray-500">USD c/u</span></p>
                         <!-- LINK PLACEHOLDER -->
-                        <a href="https://tusitio.com/curso-iniciacion" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition text-center">Empezar Ahora</a>
+                        <a href="https://samaequilibrio.tiendup.com/" target="_blank" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition text-center">Empezar Ahora</a>
                     </div>
                 </div>
 
@@ -484,73 +484,55 @@
                     <div class="p-6 bg-gray-50 border-t">
                         <p class="text-3xl font-bold !text-sama-text mb-4">$47 <span class="text-sm font-normal text-gray-500">USD / mes</span></p>
                         <!-- LINK PLACEHOLDER -->
-                        <a href="https://tusitio.com/comunidad" target="_blank" class="block w-full bg-sama-primary hover:bg-green-700 text-white font-bold py-3 rounded-lg transition text-center">Unirme a la Comunidad</a>
+                        <a href="https://ayurvedasama.com/" target="_blank" class="block w-full bg-sama-primary hover:bg-green-700 text-white font-bold py-3 rounded-lg transition text-center">Unirme a la Comunidad</a>
                     </div>
                 </div>
 
-                <!-- Offer 3: Consultations (CORREGIDO ESTRUCTURALMENTE) -->
+                <!-- Offer 3: Consultations (CORREGIDO) -->
                 <div class="offer-card deep bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 border-t-4 border-purple-500 md:col-span-2 lg:col-span-1">
                     
-                    <!-- Top Part: Content & Logic -->
+                    <!-- PISO DE ARRIBA: Contenido (Fondo Blanco) -->
                     <div class="p-6 flex-grow">
                         <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Atención Personalizada</span>
                         <h3 class="font-serif text-2xl font-bold text-sama-text mt-4 mb-2">Sesión Médica Individual</h3>
                         <p class="text-gray-600 text-sm mb-6">Diagnóstico profundo y plan de tratamiento específico.</p>
                         
-                        <!-- Toggle Buttons -->
+                        <!-- Botones Switch -->
                         <div class="bg-gray-100 p-1 rounded-lg flex mb-4">
                             <button onclick="toggleConsult('team')" id="btn-team" class="w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition">Equipo Sama</button>
                             <button onclick="toggleConsult('dr')" id="btn-dr" class="w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition">Dr. Nicasio</button>
                         </div>
 
-                        <!-- Team Details (List) -->
+                        <!-- Lista: Equipo -->
                         <div id="info-team">
-                            <p class="text-xs text-gray-500 mb-2">Atención junto a terapéutas formados en Academia Sama Marga.</p>
+                            <p class="text-xs text-gray-500 mb-2">Atención junto a terapeutas formados en Academia Sama Marga.</p>
                             <ul class="space-y-2 mb-4">
                                 <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Diagnóstico por el Dr.</li>
-                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Seguimiento por los Colaboradores.</li>
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Seguimiento por Colaboradores</li>
                                 <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-green-500 mr-2"></i> Disponibilidad Rápida</li>
                             </ul>
                         </div>
 
-                        <!-- Dr Details (List) - Hidden by default -->
+                        <!-- Lista: Dr (Oculta) -->
                         <div id="info-dr" class="hidden">
                             <p class="text-xs text-gray-500 mb-2">Atención exclusiva con el Dr. Nicasio (Lista de Espera).</p>
                             <ul class="space-y-2 mb-4">
-                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Mentoría Directa</li>
-                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Casos Complejos</li>
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-yellow-500 mr-2"></i> Mentoría Directa</li>
+                                <li class="flex items-center text-sm text-gray-600"><i class="fa-solid fa-check text-yellow-500 mr-2"></i> Casos Complejos</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Bottom Part: Footer (Gray Background) -->
+                    <!-- PISO DE ABAJO: Precios y Botones (Fondo Gris - Igual que Ofertas 1 y 2) -->
                     <div class="p-6 bg-gray-50 border-t mt-auto">
                         
-                        <!-- Team Action -->
+                        <!-- Acción: Equipo -->
                         <div id="action-team">
                             <p class="text-3xl font-bold text-sama-text mb-4">$50 <span class="text-sm font-normal text-gray-500">USD</span></p>
                             <a href="https://v2.soloturnos.com/empresa/nicasiocavilla" target="_blank" class="block w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition text-center">Agendar Equipo</a>
                         </div>
 
-                        <!-- Dr Action - Hidden by default -->
-                        <div id="action-dr" class="hidden">
-                            <p class="text-3xl font-bold text-sama-text mb-4">$200 <span class="text-sm font-normal text-gray-500">USD</span></p>
-                            <a href="https://v2.soloturnos.com/empresa/nicasiocavilla" target="_blank" class="block w-full bg-gray-800 hover:bg-black text-white font-bold py-3 rounded-lg transition text-center">Lista Espera</a>
-                        </div>
-
-                    </div>
-                </div>
-
-                    <!-- Bottom Part: Footer (Gray Background) -->
-                    <div class="p-6 bg-gray-50 border-t mt-auto">
-                        
-                        <!-- Team Action -->
-                        <div id="action-team">
-                            <p class="text-3xl font-bold text-sama-text mb-4">$50 <span class="text-sm font-normal text-gray-500">USD</span></p>
-                            <a href="https://calendly.com/sama/equipo" target="_blank" class="block w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition text-center">Agendar Equipo</a>
-                        </div>
-
-                        <!-- Dr Action - Hidden by default -->
+                        <!-- Acción: Dr (Oculta) -->
                         <div id="action-dr" class="hidden">
                             <p class="text-3xl font-bold text-sama-text mb-4">$200 <span class="text-sm font-normal text-gray-500">USD</span></p>
                             <a href="https://v2.soloturnos.com/empresa/nicasiocavilla" target="_blank" class="block w-full bg-gray-800 hover:bg-black text-white font-bold py-3 rounded-lg transition text-center">Lista Espera</a>
@@ -689,6 +671,7 @@
             });
         }
 
+        // Updated toggleConsult to handle split lists and footers
         function toggleConsult(type) {
             const btnTeam = document.getElementById('btn-team');
             const btnDr = document.getElementById('btn-dr');
