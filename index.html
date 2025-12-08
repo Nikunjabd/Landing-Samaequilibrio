@@ -114,7 +114,7 @@
 
             <!-- Menú Desktop -->
             <div class="hidden md:flex space-x-8 text-sama-text font-medium">
-                <a href="#problema" class="hover:text-sama-dark transition">Descubre si podemos ayudarte</a>
+                <a href="#problema" class="hover:text-sama-dark transition">Tu Situación</a>
                 <a href="#metodo" class="hover:text-sama-dark transition">El Método</a>
                 <a href="#bio" class="hover:text-sama-dark transition">Dr. Nicasio</a>
                 <a href="#ofertas" class="hover:text-sama-dark transition">Servicios</a>
@@ -140,7 +140,7 @@
                 <i class="fa-solid fa-xmark text-4xl"></i>
             </button>
             
-            <a href="#problema" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">Descubre si podemos ayudarte</a>
+            <a href="#problema" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">Tu Situación</a>
             <a href="#metodo" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">El Método</a>
             <a href="#bio" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">Dr. Nicasio</a>
             <a href="#ofertas" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">Servicios</a>
@@ -151,24 +151,27 @@
         </div>
     </nav>
 
-    <!-- Hero Section (CORREGIDO) -->
+    <!-- Hero Section (ACTUALIZADO: Fix Móvil Definitivo) -->
     <header class="relative pt-28 md:pt-36 pb-12 md:pb-20 overflow-hidden !bg-sama-base">
         <div class="absolute inset-0 hero-pattern z-0"></div>
         
         <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
             
             <!-- Text Content -->
-            <div class="w-full md:w-1/2 lg:w-[55%] text-center md:text-left relative z-10 order-2 md:order-1">
+            <div class="w-full md:w-1/2 lg:w-[60%] text-center md:text-left relative z-10 order-2 md:order-1">
                 
                 <!-- KICKER -->
                 <p class="text-sm font-bold text-sama-dark tracking-[0.2em] uppercase mb-4 pl-1">
                     Medicina Integrativa y Ayurveda
                 </p>
 
-                <!-- TITULAR (Optimizado para 2 líneas en desktop) -->
-                <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl !text-sama-text font-bold leading-tight mb-6">
-                    "Tratamos la persona, <br class="hidden md:inline">
-                    <span class="italic text-sama-dark">no la enfermedad."</span>
+                <!-- TITULAR (AJUSTE FINAL) -->
+                <!-- Usamos <br> visible siempre para forzar el salto en "persona,",
+                     pero aseguramos que "no a la enfermedad" se mantenga junto si es posible,
+                     o que rompa de forma natural sin dejar palabras huérfanas. -->
+                <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl !text-sama-text font-bold leading-tight mb-6">
+                    "Tratamos la persona, <br>
+                    <span class="italic text-sama-dark inline-block">no la enfermedad."</span>
                 </h1>
                 
                 <div class="inline-block bg-white/60 backdrop-blur-sm p-4 rounded-xl shadow-sm mb-6 md:mb-8 border border-white/50">
@@ -317,8 +320,8 @@
                         <div class="w-16 h-16 bg-sama-light rounded-full flex items-center justify-center text-sama-dark text-2xl mx-auto mb-4">
                             <i class="fa-solid fa-compass"></i>
                         </div>
-                        <h3 class="font-bold text-xl !text-sama-text mb-2">1. Determinación</h3>
-                        <p class="!text-gray-600 text-sm">El compromiso inquebrantable con tus objetivos de salud.</p>
+                        <h3 class="font-bold text-xl !text-sama-text mb-2">1. Claridad y Propósito</h3>
+                        <p class="!text-gray-600 text-sm">Saber exactamente hacia dónde vas y por qué, para que la determinación nazca sola sin forzarla.</p>
                     </div>
                     <div class="p-6 bg-white rounded-xl shadow-md card-hover border-t-4 border-sama-accent">
                         <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-yellow-700 text-2xl mx-auto mb-4">
@@ -331,18 +334,18 @@
                         <div class="w-16 h-16 bg-sama-light rounded-full flex items-center justify-center text-sama-dark text-2xl mx-auto mb-4">
                             <i class="fa-solid fa-person-digging"></i>
                         </div>
-                        <h3 class="font-bold text-xl !text-sama-text mb-2">3. Trabajo Interno</h3>
-                        <p class="!text-gray-600 text-sm">Práctica adecuada, desapego y gestión emocional.</p>
+                        <h3 class="font-bold text-xl !text-sama-text mb-2">3. Gestión Interior</h3>
+                        <p class="!text-gray-600 text-sm">Técnicas simples para gestionar el estrés y las emociones, para que tu mente sea tu aliada y no tu enemiga.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-                <!-- Botón Centrado "Quiero empezar" -->
+                <!-- Botón Centrado "Ver cómo funciona el Sistema" -->
                <div class="flex justify-center mt-12 pb-12">
                     <a href="#ofertas" class="bg-white hover:bg-sama-light text-sama-text border-2 border-sama-primary px-10 py-3 rounded-full font-bold transition shadow-md inline-flex items-center justify-center text-center w-auto text-lg">
-                        Quiero empezar
+                       Ver cómo funciona el Sistema
                     </a>
                 </div>
             </div>
@@ -365,9 +368,7 @@
                         <h3 class="!text-yellow-600 font-bold uppercase tracking-wide text-sm mb-6">"Devolviendo el control a mis pacientes desde el 2002"</h3>
                         
                         <p class="!text-gray-700 mb-6 leading-relaxed">
-                            Graduado de la Universidad del Salvador y especializado en Nutrición en la UCA y en Ayurveda en la UBA. Tras viajar por India, Marruecos y Latinoamérica, el Dr. Nicasio es el puente entre la ciencia moderna y la sabiduría tradicional.
-                        </p>
-                        
+                        <p class="!text-gray-700 mb-6 leading-relaxed">Formado en la Universidad del Salvador y especializado en Ayurveda tras viajar por India, Marruecos y Latinoamérica, <strong>el Dr. Nicasio es el puente entre la ciencia moderna y la sabiduría tradicional.</strong></p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                             <!-- Items repetidos para el grid -->
                             <div class="flex items-start">
@@ -401,7 +402,7 @@
                         </div>
 
                         <div class="border-t border-sama-primary/30 pt-6">
-                            <p class="italic !text-gray-700 text-sm">"Mi misión es simple: Apoderarte para que tomes las riendas del cuidado de tu salud."</p>
+                            <p class="italic !text-gray-700 text-sm">"Mi misión es simple: Devolverte el control para que tomes las riendas del cuidado de tu salud."</p>
                         </div>
                     </div>
                 </div>
@@ -421,11 +422,12 @@
                     <div class="flex justify-center text-yellow-400 mb-4">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-gray-600 italic mb-4 flex-grow">"En 20 días me había desinflamado y bajé 8 kilos. Pasé de estar triste y aislada a tener ganas de conectar."</p>
+                    <p class="text-gray-600 italic mb-4 flex-grow"><strong>"En 20 días me había desinflamado y <strong>bajé 8 kilos<strong>. Pasé de estar triste y aislada a tener ganas de conectar."</p>
                     <div class="font-bold text-sama-text mb-4">- Miriam V.</div>
-                    <a href="https://open.spotify.com/episode/0zk4aT88z0XM9V8rG7KZBf?si=4692f22989d94d69&nd=1&dlsi=5b07d7d955a742cd" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
-                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
-                    </a>
+                    <!-- Spotify Embed Miriam -->
+                    <div class="w-full mt-auto">
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/0zk4aT88z0XM9V8rG7KZBf?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
                 </div>
                 <!-- Diego -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
@@ -433,11 +435,12 @@
                     <div class="flex justify-center text-yellow-400 mb-4">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-gray-600 italic mb-4 flex-grow">"Este camino me dio contención y claridad. Honestamente, me cambió la vida."</p>
+                    <p class="text-gray-600 italic mb-4 flex-grow">"Este camino me dio <strong>contención y claridad<strong>. Honestamente, <strong>me cambió la vida."<strong></p>
                     <div class="font-bold text-sama-text mb-4">- Diego S.</div>
-                    <a href="https://open.spotify.com/episode/2QaOl80aaryZyUWcFggB2Z?si=e06ffbc9cdc84cd8&nd=1&dlsi=1ba784da6b084a30" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
-                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
-                    </a>
+                     <!-- Spotify Embed Diego -->
+                    <div class="w-full mt-auto">
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2QaOl80aaryZyUWcFggB2Z?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
                 </div>
                 <!-- Liliana -->
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center flex flex-col h-full">
@@ -445,11 +448,12 @@
                     <div class="flex justify-center text-yellow-400 mb-4">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-gray-600 italic mb-4 flex-grow">"Se me normalizó la presión, no tengo más colesterol y volví a sentirme realmente bien."</p>
+                    <p class="text-gray-600 italic mb-4 flex-grow"><strong>"Se me normalizó la presión, no tengo más colesterol<strong> y volví a sentirme realmente bien."</p>
                     <div class="font-bold text-sama-text mb-4">- Liliana E.</div>
-                    <a href="https://open.spotify.com/episode/2hGGe11TTsY5SB7NAE8vEz?si=24f499b693124268&nd=1&dlsi=4aa1798902884e52" target="_blank" class="text-xs font-bold text-sama-primary hover:text-sama-dark border border-sama-primary/30 rounded-full px-4 py-2 transition inline-flex items-center justify-center gap-2 mt-auto">
-                        <i class="fa-solid fa-microphone-lines"></i> Escuchar testimonio completo
-                    </a>
+                <!-- Spotify Embed Liliana -->
+                    <div class="w-full mt-auto">
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2hGGe11TTsY5SB7NAE8vEz?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -573,12 +577,12 @@
                     <div class="relative z-10 w-full md:w-2/3 mb-4 md:mb-0">
                         <span class="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full uppercase mb-2 inline-block">Experiencia Premium</span>
                         <h3 class="font-serif text-3xl font-bold mb-2">Programa Wellness Sama Sana</h3>
-                        <p class="text-gray-100 mb-4">4 noches de inmersión total en Hotel Chacras de Sierras. Desintoxicación, alimentación y aprendizaje intensivo.</p>
+                        <p class="text-gray-100 mb-4">Desconecta para Reconectar. 4 noches de inmersión y desintoxicación profunda en la naturaleza.</p>
                     </div>
                     <div class="relative z-10 w-full md:w-1/3 text-center md:text-right">
                         <!-- LINK PLACEHOLDER -->
                         <a href="https://tusitio.com/retiro-wellness" target="_blank" class="bg-white text-sama-dark hover:bg-gray-100 font-bold px-8 py-3 rounded-full shadow-lg transition transform hover:scale-105 w-full md:w-auto inline-block text-center">
-                            Ver Detalles
+                            Ver la Experiencia
                         </a>
                     </div>
                  </div>
@@ -590,7 +594,7 @@
                     <div class="relative z-10 w-full md:w-2/3 mb-4 md:mb-0">
                         <span class="bg-sama-academy text-white text-xs font-bold px-3 py-1 rounded-full uppercase mb-2 inline-block">Formación Profesional</span>
                         <h3 class="font-serif text-3xl font-bold mb-2 text-sama-text">Academia Sama Marga</h3>
-                        <p class="text-gray-600 mb-4">¿Te gustaría ser terapeuta Ayurveda? Formate con el método del Dr. Nicasio.</p>
+                        <p class="text-gray-600 mb-4">Conviértete en un Terapeuta Certificado. Domina la metodología clínica del Dr. Nicasio y expande tu impacto profesional.</p>
                     </div>
                     <div class="relative z-10 w-full md:w-1/3 text-center md:text-right">
                         <!-- LINK PLACEHOLDER -->
@@ -618,13 +622,13 @@
                         Consejos de Bienestar Semanales
                     </h2>
                     <p class="text-gray-600 mb-8 text-lg">
-                        Recibe tips prácticos sobre alimentación, rutinas y equilibrio emocional directamente en tu bandeja de entrada. Sin spam, solo contenido de valor.
+                        Recibe novedades sobre bienestar, herramientas de alimentación, rutinas y gestión emocional directamente en tu bandeja. Sin spam, solo salud real.
                     </p>
 
                     <form class="flex flex-col sm:flex-row gap-3">
-                        <input type="email" placeholder="Tu mejor correo electrónico" class="flex-grow px-5 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-sama-primary focus:ring-2 focus:ring-sama-primary/20 transition" required>
+                        <input type="email" placeholder="Ingresa tu email aquí..." class="flex-grow px-5 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-sama-primary focus:ring-2 focus:ring-sama-primary/20 transition" required>
                         <button type="submit" class="bg-sama-primary hover:bg-sama-dark text-white px-8 py-3 rounded-lg font-bold transition shadow-md whitespace-nowrap">
-                            Suscribirme
+                            Quiero mis consejos
                         </button>
                     </form>
                     <p class="text-xs text-gray-400 mt-4">
@@ -639,8 +643,11 @@
     <footer class="bg-sama-light text-sama-text py-12">
         <div class="container mx-auto px-4 flex flex-col items-center text-center">
             <div class="mb-2">
+                <div class="flex justify-center mb-2">
+                    <img src="isotiposamat.png" alt="Sama Isotipo" class="h-12 w-auto object-contain">
+                </div>
                 <h3 class="font-serif text-2xl font-bold text-sama-dark">Sama<span class="font-light">Equilibrio</span></h3>
-                <p class="text-gray-700 text-sm mt-2 font-medium tracking-wide">medicina, empatía y conciencia</p>
+                <p class="text-gray-700 text-sm mt-2 font-medium tracking-wide">medicina, conciencia y empatía</p>
             </div>
             <div class="flex space-x-8 mb-8 text-sama-dark">
                 <a href="https://api.whatsapp.com/send?phone=5492235241596&text="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
@@ -649,8 +656,7 @@
                 <a href="https://www.youtube.com/@samaequilibrio" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-youtube text-2xl"></i></a>
                 <a href="https://open.spotify.com/show/5b4IOnRgnFRvMVMD5Yh8mq?si=HFcC5HWMTPuWZ86rSruwDg&nd=1&dlsi=3e9358ff3035443e" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-spotify text-2xl"></i></a>
             </div>
-            <div class="border-t border-sama-primary/30 pt-8 w-full max-w-2xl flex flex-col items-center">
-                <a href="https://tu-url-del-test.com" target="_blank" class="text-sama-dark hover:text-sama-primary transition font-bold text-sm mb-4">
+                <a href="https://tu-url-del-test.com" target="_blank" class="bg-sama-accent text-sama-text hover:bg-orange-200 transition font-bold text-sm px-6 py-3 rounded-full shadow-md mb-4 border border-orange-200/50 inline-block">
                     ¿Aún no sabés tu Biotipo? Hacé el Test
                 </a>
                 <p class="text-gray-600 text-sm">&copy; 2026 Sama Equilibrio. Todos los derechos reservados.</p>
