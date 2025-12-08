@@ -125,9 +125,10 @@
                ¿Cuál es mi biotipo (dosha)?
             </a>
 
-              <!-- Botón Hamburguesa -->
+            <!-- Botón Hamburguesa -->
             <div class="md:hidden flex items-center">
-                <button id="menu-btn" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md hover:bg-sama-light z-50">
+                <!-- CAMBIO: Eliminado hover en móvil, usado active, y onclick directo -->
+                <button id="menu-btn" type="button" onclick="toggleMobileMenu()" class="text-sama-dark focus:outline-none p-2 border border-transparent rounded-md z-50 transition-colors duration-150 touch-manipulation">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
