@@ -118,6 +118,7 @@
                 <a href="#metodo" class="hover:text-sama-dark transition">El Método</a>
                 <a href="#bio" class="hover:text-sama-dark transition">Dr. Nicasio</a>
                 <a href="#ofertas" class="hover:text-sama-dark transition">Servicios</a>
+                 <a href="#newsletter" class="hover:text-sama-dark transition font-bold text-sama-primary">Newsletter</a>
             </div>
 
             <!-- CTA Desktop -->
@@ -144,6 +145,7 @@
             <a href="#metodo" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">El Método</a>
             <a href="#bio" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">Dr. Nicasio</a>
             <a href="#ofertas" onclick="toggleMobileMenu()" class="text-2xl font-serif text-sama-text font-bold hover:text-sama-dark transition">Servicios</a>
+            <a href="#newsletter" onclick="toggleMobileMenu()" class="text-sama-text font-medium hover:text-sama-dark block py-3 border-t border-gray-100 text-lg text-sama-primary">Newsletter</a>
             
             <a href="https://tu-url-del-test.com" target="_blank" onclick="toggleMobileMenu()" class="block bg-sama-accent text-sama-text px-6 py-4 rounded-full font-bold w-full shadow-md border-2 border-orange-400 mt-4 text-lg">
                 ¿Cuál es mi biotipo (dosha)?
@@ -593,6 +595,38 @@
         </div>
     </section>
 
+        <!-- NEW SECTION: Newsletter Capture -->
+    <section id="newsletter" class="py-16 bg-sama-light border-t border-sama-primary/10">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto text-center bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-sama-primary/20 relative overflow-hidden">
+                <!-- Decorative Circle -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-sama-accent/30 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+
+                <div class="relative z-10">
+                    <span class="inline-block bg-sama-light text-sama-dark text-xs font-bold px-3 py-1 rounded-full uppercase mb-4 tracking-wide">
+                        <i class="fa-regular fa-envelope mr-2"></i> Únete a la Comunidad
+                    </span>
+                    <h2 class="font-serif text-3xl font-bold text-sama-text mb-4">
+                        Consejos de Bienestar Semanales
+                    </h2>
+                    <p class="text-gray-600 mb-8 text-lg">
+                        Recibe tips prácticos sobre alimentación, rutinas y equilibrio emocional directamente en tu bandeja de entrada. Sin spam, solo contenido de valor.
+                    </p>
+
+                    <form class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" placeholder="Tu mejor correo electrónico" class="flex-grow px-5 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-sama-primary focus:ring-2 focus:ring-sama-primary/20 transition" required>
+                        <button type="submit" class="bg-sama-primary hover:bg-sama-dark text-white px-8 py-3 rounded-lg font-bold transition shadow-md whitespace-nowrap">
+                            Suscribirme
+                        </button>
+                    </form>
+                    <p class="text-xs text-gray-400 mt-4">
+                        <i class="fa-solid fa-lock mr-1"></i> Tu privacidad es importante. Darse de baja es fácil.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Footer -->
     <footer class="bg-sama-light text-sama-text py-12">
         <div class="container mx-auto px-4 flex flex-col items-center text-center">
