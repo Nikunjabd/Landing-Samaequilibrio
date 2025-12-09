@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sama Equilibrio - Administrador de Newsletter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+
+    <div class="max-w-3xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl border border-gray-200">
+        <h1 class="text-3xl font-bold text-sama-dark mb-4 border-b pb-2">
+            Panel de Administración - Newsletter
+        </h1>
+        <p class="text-gray-600 mb-8">
+            Aquí podrás descargar la lista completa de emails suscritos a tu Newsletter desde la colección <code class="bg-gray-100 p-1 rounded font-mono">newsletter</code> en Firebase.
+        </p>
+
+        <button id="btnDescargar" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 shadow-md">
+            <i class="fas fa-download mr-2"></i> Descargar Lista de Suscriptores (.CSV)
+        </button>
+
+        <p id="mensaje" class="mt-4 text-sm text-gray-500"></p>
+    </div>
+
+    <script type="module">
+        // Importamos las herramientas necesarias
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // --- TU CONFIGURACIÓN ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBNKkuplVI9rVEN9XbgjpLS_O-kncfCFyA",
+            authDomain: "testbiotipo.firebaseapp.com",
+            projectId: "testbiotipo",
+            storageBucket: "testbiotipo.firebasestorage.app",
+            messagingSenderId: "317910027014",
+            appId: "1:317910027014:web:1e3429835bc7f1562b6c87",
+            measurementId: "G-QLVSK0YQY7"
+        };
+
+        // Iniciamos Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- FUNCIÓN PARA CREAR EL CSV ---
+        function convertirACSV(arrayDeDatos) {
+            if (arrayDeDatos.length === 0) return '';
+            
+            // Columnas que queremos exportar: email, fecha y origen
+            const columnasDeseadas = ["email", "fecha", "origen"]; 
+
+            // Títulos de la primera fila
+            const filas = [columnasDeseadas.join(',')]; 
+
+            // Rellenamos los datos
+            arrayDeDatos.forEach(obj => {
+                const valores = columnasDeseadas.map(columna => {
+                    let valor = obj[columna] || ''; 
+                    
+                    // Formateamos la fecha si existe y es un objeto de Firebase
+                    if (columna === 'fecha' && obj.fecha && typeof obj.fecha.toDate === 'function') {
+                        valor = obj.fecha.toDate().toLocaleString('es-ES');
+                    }
+                    
+                    // Las comillas dobles aseguran que el texto con comas no rompa el CSV
+                    return `"${valor}"`; 
+                });
+                filas.push(valores.join(','));
+            });
+
+            return filas.join('\n'); 
+        }
+
+        // --- LÓGICA DEL BOTÓN ---
+        document.getElementById('btnDescargar').addEventListener('click', async () => {
+            const msj = document.getElementById('mensaje');
+            msj.textContent = "⏳ Conectando con la base de datos...";
+            msj.className = "mt-4 text-sm text-blue-600";
+
+            try {
+                // ⚠️ AQUÍ BUSCAMOS EN LA CARPETA "newsletter"
+                const querySnapshot = await getDocs(collection(db, "newsletter"));
+                
+                const listaSuscriptores = [];
+                querySnapshot.forEach((doc) => {
+                    listaSuscriptores.push(doc.data());
+                });
+
+                if (listaSuscriptores.length === 0) {
+                    msj.textContent = "⚠️ Conectado a 'newsletter', pero la carpeta está vacía.";
+                    msj.className = "mt-4 text-sm text-yellow-600";
+                    return;
+                }
+
+                // Generamos el CSV
+                const csvContent = convertirACSV(listaSuscriptores);
+
+                // Descargamos
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", "suscriptores_sama_sana.csv");
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                msj.textContent = `✅ ¡Descarga completada con éxito! Se exportaron ${listaSuscriptores.length} registros.`;
+                msj.className = "mt-4 text-sm text-green-600 font-bold";
+
+            } catch (error) {
+                console.error("Error completo:", error);
+                msj.textContent = "❌ Error: " + error.message;
+                msj.className = "mt-4 text-sm text-red-600";
+            }
+        });
+    </script>
+</body>
+</html>
