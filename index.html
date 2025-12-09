@@ -668,7 +668,6 @@
         </div>
     </footer>
 
-    <!-- Script simplificado sin Modal -->
     <script>
         const problems = [
             { icon: "fa-heart-pulse", text: "Estudios normales, pero te sentís mal" },
@@ -686,6 +685,7 @@
 
         function renderProblems() {
             const grid = document.getElementById('problemGrid');
+            if(!grid) return; // Protección por si no existe el grid
             problems.forEach((p, index) => {
                 const card = document.createElement('div');
                 card.className = "bg-white p-6 rounded-xl border border-gray-100 shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:border-sama-primary group";
@@ -713,77 +713,16 @@
                 card.classList.add('ring-2', 'ring-sama-primary', 'bg-sama-light');
                 icon.classList.remove('fa-regular', 'fa-circle', 'text-gray-300');
                 icon.classList.add('fa-solid', 'fa-circle-check', 'text-sama-primary');
-                document.getElementById('problemSummary').classList.remove('hidden');
+                const summary = document.getElementById('problemSummary');
+                if(summary) summary.classList.remove('hidden');
             }
         }
 
-        function filterOffers(category) {
-            document.querySelectorAll('.offer-filter-btn').forEach(btn => {
-                btn.classList.remove('bg-sama-dark', 'text-white');
-                btn.classList.add('bg-white', 'text-sama-text');
-                if (btn.getAttribute('onclick').includes(category)) {
-                    btn.classList.remove('bg-white', 'text-sama-text');
-                    btn.classList.add('bg-sama-dark', 'text-white');
-                }
-            });
-            document.querySelectorAll('.offer-card').forEach(card => {
-                if (category === 'all') {
-                    card.classList.remove('hidden');
-                } else {
-                    if (card.classList.contains(category)) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                }
-            });
-        }
-
-        // Updated toggleConsult to handle split lists and footers
-        function toggleConsult(type) {
-            const btnTeam = document.getElementById('btn-team');
-            const btnDr = document.getElementById('btn-dr');
-            
-            const infoTeam = document.getElementById('info-team');
-            const infoDr = document.getElementById('info-dr');
-            
-            const actionTeam = document.getElementById('action-team');
-            const actionDr = document.getElementById('action-dr');
-
-            if (type === 'team') {
-                // Button Styles
-                btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition";
-                btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
-                
-                // Toggle Content
-                infoTeam.classList.remove('hidden');
-                infoDr.classList.add('hidden');
-                
-                // Toggle Footer Action
-                actionTeam.classList.remove('hidden');
-                actionDr.classList.add('hidden');
-            } else {
-                // Button Styles
-                btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition";
-                btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
-                
-                // Toggle Content
-                infoDr.classList.remove('hidden');
-                infoTeam.classList.add('hidden');
-                
-                // Toggle Footer Action
-                actionDr.classList.remove('hidden');
-                actionTeam.classList.add('hidden');
-            }
-        }
-
-        // Toggle Mobile Menu Logic
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            
             if (menu.classList.contains('closed')) {
                 menu.classList.remove('hidden');
-                setTimeout(() => { // delay para animar la altura
+                setTimeout(() => {
                     menu.classList.remove('closed');
                     menu.classList.add('open');
                 }, 10);
@@ -797,7 +736,10 @@
         }
 
         function initCharts() {
-            const ctxInt = document.getElementById('intelligenceChart').getContext('2d');
+            const canvas = document.getElementById('intelligenceChart');
+            if(!canvas) return; // Protección por si no existe el canvas
+            
+            const ctxInt = canvas.getContext('2d');
             new Chart(ctxInt, {
                 type: 'radar',
                 data: {
@@ -837,65 +779,64 @@
                 }
             });
         }
-<script type="module">
-    // 1. IMPORTACIONES (Aquí agregamos 'addDoc' que era lo que faltaba) 
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    </script>
 
-    // 2. TU CONFIGURACIÓN (Copiada de tu otro archivo)
-    const firebaseConfig = {
-        apiKey: "AIzaSyCFPFlpRmBcXxjNWPUuc2MKEe19Jx3qNC0",
-        authDomain: "testbiotipo.firebaseapp.com",
-        projectId: "testbiotipo",
-        storageBucket: "testbiotipo.firebasestorage.app",
-        messagingSenderId: "317910027014",
-        appId: "1:317910027014:web:1e3429835bc7f1562b6c87",
-        measurementId: "G-QLVSK0YQY7"
-    };
+    <script type="module">
+        // 1. IMPORTACIONES
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 3. INICIAMOS LA BASE DE DATOS
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+        // 2. TU CONFIGURACIÓN
+        const firebaseConfig = {
+            apiKey: "AIzaSyCFPFlpRmBcXxjNWPUuc2MKEe19Jx3qNC0",
+            authDomain: "testbiotipo.firebaseapp.com",
+            projectId: "testbiotipo",
+            storageBucket: "testbiotipo.firebasestorage.app",
+            messagingSenderId: "317910027014",
+            appId: "1:317910027014:web:1e3429835bc7f1562b6c87",
+            measurementId: "G-QLVSK0YQY7"
+        };
 
-    // --- LÓGICA DEL NEWSLETTER ---
-    
-    // Buscamos el formulario
-    const newsletterForm = document.getElementById('newsletterForm');
+        // 3. INICIAMOS LA BASE DE DATOS
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); 
+        // --- LÓGICA DEL NEWSLETTER ---
+        const newsletterForm = document.getElementById('newsletterForm');
 
-            const emailInput = document.getElementById('newsletterEmail');
-            const email = emailInput.value;
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // ¡Esto evita el salto de página!
 
-            // Feedback visual
-            const boton = newsletterForm.querySelector('button');
-            const textoOriginal = boton.innerText;
-            boton.innerText = "Guardando...";
-            boton.disabled = true;
+                const emailInput = document.getElementById('newsletterEmail');
+                const email = emailInput.value;
 
-            try {
-                // GUARDAMOS EN FIREBASE
-                // Ahora sí funcionará porque importamos 'addDoc' arriba del todo
-                await addDoc(collection(db, "newsletter"), {
-                    email: email,
-                    fecha: new Date(),
-                    origen: "landing_page"
-                });
+                // Feedback visual
+                const boton = newsletterForm.querySelector('button');
+                const textoOriginal = boton.innerText;
+                boton.innerText = "Guardando...";
+                boton.disabled = true;
 
-                alert("¡Gracias por suscribirte! Te has unido a la comunidad Sama Sana.");
-                emailInput.value = ""; 
-                
-            } catch (error) {
-                console.error("Error al suscribir:", error);
-                alert("Hubo un error al guardar tu email: " + error.message);
-            } finally {
-                boton.innerText = textoOriginal;
-                boton.disabled = false;
-            }
-        });
-    }
-</script>
+                try {
+                    // GUARDAMOS EN FIREBASE
+                    await addDoc(collection(db, "newsletter"), {
+                        email: email,
+                        fecha: new Date(),
+                        origen: "landing_page"
+                    });
+
+                    alert("¡Gracias por suscribirte! Te has unido a la comunidad Sama Sana.");
+                    emailInput.value = ""; 
+                    
+                } catch (error) {
+                    console.error("Error al suscribir:", error);
+                    alert("Hubo un error al guardar tu email: " + error.message);
+                } finally {
+                    boton.innerText = textoOriginal;
+                    boton.disabled = false;
+                }
+            });
+        }
+    </script>
 </body>
 </html>
