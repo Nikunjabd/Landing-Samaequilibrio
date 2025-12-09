@@ -715,7 +715,25 @@
                 if(summary) summary.classList.remove('hidden');
             }
         }
-
+        // Función para el menú del celular
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            
+            if (menu.classList.contains('closed')) {
+                menu.classList.remove('hidden');
+                // Pequeño retraso para permitir la animación
+                setTimeout(() => {
+                    menu.classList.remove('closed');
+                    menu.classList.add('open');
+                }, 10);
+            } else {
+                menu.classList.remove('open');
+                menu.classList.add('closed');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300); 
+            }
+        }
         function initCharts() {
             const canvas = document.getElementById('intelligenceChart');
             if(!canvas) return;
