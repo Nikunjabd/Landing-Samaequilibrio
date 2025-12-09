@@ -837,48 +837,65 @@
                 }
             });
         }
-        // --- LÓGICA DEL NEWSLETTER ---
+<script type="module">
+    // 1. IMPORTACIONES (Aquí agregamos 'addDoc' que era lo que faltaba) 
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // 2. TU CONFIGURACIÓN (Copiada de tu otro archivo)
+    const firebaseConfig = {
+        apiKey: "AIzaSyCFPFlpRmBcXxjNWPUuc2MKEe19Jx3qNC0",
+        authDomain: "testbiotipo.firebaseapp.com",
+        projectId: "testbiotipo",
+        storageBucket: "testbiotipo.firebasestorage.app",
+        messagingSenderId: "317910027014",
+        appId: "1:317910027014:web:1e3429835bc7f1562b6c87",
+        measurementId: "G-QLVSK0YQY7"
+    };
+
+    // 3. INICIAMOS LA BASE DE DATOS
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // --- LÓGICA DEL NEWSLETTER ---
     
-    // 1. Buscamos el formulario del newsletter por su nuevo ID
+    // Buscamos el formulario
     const newsletterForm = document.getElementById('newsletterForm');
 
-    // 2. Escuchamos cuando alguien intenta enviarlo
-    if (newsletterForm) { // (El 'if' es por seguridad, para que no de error si no encuentra el form)
+    if (newsletterForm) {
         newsletterForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evitamos que la página se recargue
+            e.preventDefault(); 
 
-            // Buscamos el campo de email
             const emailInput = document.getElementById('newsletterEmail');
             const email = emailInput.value;
 
-            // Feedback visual: Cambiamos el botón para que sepan que algo pasa
+            // Feedback visual
             const boton = newsletterForm.querySelector('button');
             const textoOriginal = boton.innerText;
             boton.innerText = "Guardando...";
             boton.disabled = true;
 
             try {
-                // 3. Guardamos en Firebase en una colección nueva: 'newsletter'
+                // GUARDAMOS EN FIREBASE
+                // Ahora sí funcionará porque importamos 'addDoc' arriba del todo
                 await addDoc(collection(db, "newsletter"), {
                     email: email,
-                    fecha: new Date(), // Guardamos la fecha de suscripción
+                    fecha: new Date(),
                     origen: "landing_page"
                 });
 
-                // Éxito: Avisamos al usuario y limpiamos el campo
                 alert("¡Gracias por suscribirte! Te has unido a la comunidad Sama Sana.");
-                emailInput.value = ""; // Limpiamos la caja
+                emailInput.value = ""; 
                 
             } catch (error) {
                 console.error("Error al suscribir:", error);
-                alert("Hubo un error al guardar tu email. Por favor intenta de nuevo.");
+                alert("Hubo un error al guardar tu email: " + error.message);
             } finally {
-                // Restauramos el botón a la normalidad
                 boton.innerText = textoOriginal;
                 boton.disabled = false;
             }
         });
     }
-    </script>
+</script>
 </body>
 </html>
