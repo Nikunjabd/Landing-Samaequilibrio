@@ -608,11 +608,9 @@
         </div>
     </section>
 
-        <!-- NEW SECTION: Newsletter Capture -->
-    <section id="newsletter" class="py-16 bg-sama-light border-t border-sama-primary/10">
+<section id="newsletter" class="py-16 bg-sama-light border-t border-sama-primary/10">
         <div class="container mx-auto px-4">
             <div class="max-w-2xl mx-auto text-center bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-sama-primary/20 relative overflow-hidden">
-                <!-- Decorative Circle -->
                 <div class="absolute top-0 right-0 w-32 h-32 bg-sama-accent/30 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
 
                 <div class="relative z-10">
@@ -627,13 +625,12 @@
                     </p>
 
                     <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+                        <input id="newsletterEmail" type="email" placeholder="Ingresa tu email aquí..." class="flex-grow px-5 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-sama-primary focus:ring-2 focus:ring-sama-primary/20 transition" required>
+                        <button type="submit" class="bg-sama-primary hover:bg-sama-dark text-white px-8 py-3 rounded-lg font-bold transition shadow-md whitespace-nowrap">
+                            Suscríbete
+                        </button>
+                    </form>
 
-    <input id="newsletterEmail" type="email" placeholder="Ingresa tu email aquí..." class="flex-grow px-5 py-3..." required>
-    
-    <button type="submit" class="...">
-        Suscríbete
-    </button>
-</form>
                     <p class="text-xs text-gray-400 mt-4">
                         <i class="fa-solid fa-lock mr-1"></i> Tu privacidad es importante. Darse de baja es fácil.
                     </p>
@@ -642,7 +639,6 @@
         </div>
     </section>
     
-    <!-- Footer -->
     <footer class="bg-sama-light text-sama-text py-12">
         <div class="container mx-auto px-4 flex flex-col items-center text-center">
             <div class="mb-2">
@@ -652,18 +648,20 @@
                 <h3 class="font-serif text-2xl font-bold text-sama-dark">Sama<span class="font-light">Equilibrio</span></h3>
                 <p class="text-gray-700 text-sm mt-2 font-medium tracking-wide">medicina, conciencia y empatía</p>
             </div>
+            
             <div class="flex space-x-8 mb-8 text-sama-dark">
-                <a href="https://api.whatsapp.com/send?phone=5492235241596&text="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+                <a href="https://api.whatsapp.com/send?phone=5492235241596&text=" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
                 <a href="https://www.instagram.com/samaequilibrio/" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-instagram text-2xl"></i></a>
                 <a href="https://www.facebook.com/sama.espaciodeequilibrio" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-facebook text-2xl"></i></a>
                 <a href="https://www.youtube.com/@samaequilibrio" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-youtube text-2xl"></i></a>
-                <a href="https://open.spotify.com/show/5b4IOnRgnFRvMVMD5Yh8mq?si=HFcC5HWMTPuWZ86rSruwDg&nd=1&dlsi=3e9358ff3035443e" target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-spotify text-2xl"></i></a>
+                <a href="https://open.spotify.com/show/..." target="_blank" class="hover:text-sama-primary transition transform hover:scale-110"><i class="fa-brands fa-spotify text-2xl"></i></a>
             </div>
-            <div class="border-t border-sama-primary/30 pt-8 w-full max-w-2xl flex flex-col items-center">    
+
+            <div class="border-t border-sama-primary/30 pt-8 w-full max-w-2xl flex flex-col items-center">      
                 <a href="https://tu-url-del-test.com" target="_blank" class="bg-sama-accent text-sama-text hover:bg-orange-200 transition font-bold text-sm px-6 py-3 rounded-full shadow-md mb-4 border-2 border-orange-400 inline-block">
                     ¿Aún no sabés tu Biotipo? Hacé el Test
                 </a>
-                <p class="text-gray-600 text-sm">&copy; 2026 Sama Equilibrio. Todos los derechos reservados.</p>
+                <p class="text-gray-600 text-sm">© 2026 Sama Equilibrio. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -685,7 +683,7 @@
 
         function renderProblems() {
             const grid = document.getElementById('problemGrid');
-            if(!grid) return; // Protección por si no existe el grid
+            if(!grid) return;
             problems.forEach((p, index) => {
                 const card = document.createElement('div');
                 card.className = "bg-white p-6 rounded-xl border border-gray-100 shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:border-sama-primary group";
@@ -718,26 +716,9 @@
             }
         }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            if (menu.classList.contains('closed')) {
-                menu.classList.remove('hidden');
-                setTimeout(() => {
-                    menu.classList.remove('closed');
-                    menu.classList.add('open');
-                }, 10);
-            } else {
-                menu.classList.remove('open');
-                menu.classList.add('closed');
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                }, 300); 
-            }
-        }
-
         function initCharts() {
             const canvas = document.getElementById('intelligenceChart');
-            if(!canvas) return; // Protección por si no existe el canvas
+            if(!canvas) return;
             
             const ctxInt = canvas.getContext('2d');
             new Chart(ctxInt, {
@@ -782,11 +763,9 @@
     </script>
 
     <script type="module">
-        // 1. IMPORTACIONES
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // 2. TU CONFIGURACIÓN
         const firebaseConfig = {
             apiKey: "AIzaSyCFPFlpRmBcXxjNWPUuc2MKEe19Jx3qNC0",
             authDomain: "testbiotipo.firebaseapp.com",
@@ -797,28 +776,24 @@
             measurementId: "G-QLVSK0YQY7"
         };
 
-        // 3. INICIAMOS LA BASE DE DATOS
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- LÓGICA DEL NEWSLETTER ---
         const newsletterForm = document.getElementById('newsletterForm');
 
         if (newsletterForm) {
             newsletterForm.addEventListener('submit', async (e) => {
-                e.preventDefault(); // ¡Esto evita el salto de página!
+                e.preventDefault(); 
 
                 const emailInput = document.getElementById('newsletterEmail');
                 const email = emailInput.value;
 
-                // Feedback visual
                 const boton = newsletterForm.querySelector('button');
                 const textoOriginal = boton.innerText;
                 boton.innerText = "Guardando...";
                 boton.disabled = true;
 
                 try {
-                    // GUARDAMOS EN FIREBASE
                     await addDoc(collection(db, "newsletter"), {
                         email: email,
                         fecha: new Date(),
