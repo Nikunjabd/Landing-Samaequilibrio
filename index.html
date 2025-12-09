@@ -626,12 +626,14 @@
                         Recibe novedades sobre bienestar, herramientas de alimentación, rutinas y gestión emocional directamente en tu bandeja. Sin spam, solo salud real.
                     </p>
 
-                    <form class="flex flex-col sm:flex-row gap-3">
-                        <input type="email" placeholder="Ingresa tu email aquí..." class="flex-grow px-5 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-sama-primary focus:ring-2 focus:ring-sama-primary/20 transition" required>
-                        <button type="submit" class="bg-sama-primary hover:bg-sama-dark text-white px-8 py-3 rounded-lg font-bold transition shadow-md whitespace-nowrap">
-                            Suscríbete
-                        </button>
-                    </form>
+                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+
+    <input id="newsletterEmail" type="email" placeholder="Ingresa tu email aquí..." class="flex-grow px-5 py-3..." required>
+    
+    <button type="submit" class="...">
+        Suscríbete
+    </button>
+</form>
                     <p class="text-xs text-gray-400 mt-4">
                         <i class="fa-solid fa-lock mr-1"></i> Tu privacidad es importante. Darse de baja es fácil.
                     </p>
@@ -835,6 +837,48 @@
                 }
             });
         }
+        // --- LÓGICA DEL NEWSLETTER ---
+    
+    // 1. Buscamos el formulario del newsletter por su nuevo ID
+    const newsletterForm = document.getElementById('newsletterForm');
+
+    // 2. Escuchamos cuando alguien intenta enviarlo
+    if (newsletterForm) { // (El 'if' es por seguridad, para que no de error si no encuentra el form)
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evitamos que la página se recargue
+
+            // Buscamos el campo de email
+            const emailInput = document.getElementById('newsletterEmail');
+            const email = emailInput.value;
+
+            // Feedback visual: Cambiamos el botón para que sepan que algo pasa
+            const boton = newsletterForm.querySelector('button');
+            const textoOriginal = boton.innerText;
+            boton.innerText = "Guardando...";
+            boton.disabled = true;
+
+            try {
+                // 3. Guardamos en Firebase en una colección nueva: 'newsletter'
+                await addDoc(collection(db, "newsletter"), {
+                    email: email,
+                    fecha: new Date(), // Guardamos la fecha de suscripción
+                    origen: "landing_page"
+                });
+
+                // Éxito: Avisamos al usuario y limpiamos el campo
+                alert("¡Gracias por suscribirte! Te has unido a la comunidad Sama Sana.");
+                emailInput.value = ""; // Limpiamos la caja
+                
+            } catch (error) {
+                console.error("Error al suscribir:", error);
+                alert("Hubo un error al guardar tu email. Por favor intenta de nuevo.");
+            } finally {
+                // Restauramos el botón a la normalidad
+                boton.innerText = textoOriginal;
+                boton.disabled = false;
+            }
+        });
+    }
     </script>
 </body>
 </html>
