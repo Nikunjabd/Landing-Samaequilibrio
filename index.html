@@ -710,14 +710,73 @@
                 if(summary) summary.classList.remove('hidden');
             }
         }
-        // Función para el menú del celular
+        
+        function filterOffers(category) {
+            document.querySelectorAll('.offer-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-sama-dark', 'text-white');
+                btn.classList.add('bg-white', 'text-sama-text');
+                if (btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.remove('bg-white', 'text-sama-text');
+                    btn.classList.add('bg-sama-dark', 'text-white');
+                }
+            });
+            document.querySelectorAll('.offer-card').forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    if (card.classList.contains(category)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function toggleConsult(type) {
+            const btnTeam = document.getElementById('btn-team');
+            const btnDr = document.getElementById('btn-dr');
+            
+            const infoTeam = document.getElementById('info-team');
+            const infoDr = document.getElementById('info-dr');
+            
+            const actionTeam = document.getElementById('action-team');
+            const actionDr = document.getElementById('action-dr');
+
+            if (type === 'team') {
+                // Button Styles
+                btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition";
+                btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
+                
+                // Toggle Content
+                infoTeam.classList.remove('hidden');
+                infoDr.classList.add('hidden');
+                
+                // Toggle Footer Action
+                actionTeam.classList.remove('hidden');
+                actionDr.classList.add('hidden');
+            } else {
+                // Button Styles
+                btnDr.className = "w-1/2 py-1 rounded-md text-sm font-bold bg-white shadow-sm text-sama-text transition";
+                btnTeam.className = "w-1/2 py-1 rounded-md text-sm font-bold text-gray-500 hover:bg-gray-200 transition";
+                
+                // Toggle Content
+                infoDr.classList.remove('hidden');
+                infoTeam.classList.add('hidden');
+                
+                // Toggle Footer Action
+                actionDr.classList.remove('hidden');
+                actionTeam.classList.add('hidden');
+            }
+        }
+
+        // Toggle Mobile Menu Logic (Mejorada para eventos táctiles)
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             
             if (menu.classList.contains('closed')) {
                 menu.classList.remove('hidden');
-                // Pequeño retraso para permitir la animación
-                setTimeout(() => {
+                setTimeout(() => { 
                     menu.classList.remove('closed');
                     menu.classList.add('open');
                 }, 10);
